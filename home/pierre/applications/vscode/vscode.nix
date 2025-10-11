@@ -9,8 +9,9 @@ in
 {
     programs.vscode = {
         enable = true;
-        inherit extensions;
-        
-        userSettings = builtins.fromJSON (builtins.readFile ./vscode-settings.json);
+        profiles.default = {
+            inherit extensions;
+            userSettings = builtins.fromJSON (builtins.readFile ./vscode-settings.json);
+        };
     };
 }
