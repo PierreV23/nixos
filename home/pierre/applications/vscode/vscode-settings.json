@@ -1,0 +1,80 @@
+{
+    "files.associations": { "*.asm": "retroasm_gameboy" },
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "python.analysis.typeCheckingMode": "basic",
+    "terminal.integrated.fontFamily": "Comic Code Ligatures",
+    "editor.fontFamily": "'Comic Code Ligatures', 'Comic Code', 'Comic Mono',  Consolas, 'Courier New', monospaceomi",
+    "editor.stickyScroll.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": false,
+    "python.linting.flake8Enabled": true,
+    "editor.rulers": [
+        79
+    ],
+    "ruff.lint.enable": true,
+    "ruff.organizeImports": false,
+    "ruff.fixAll": true,
+    "python.languageServer": "Pylance",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "always",
+            "source.organizeImports.ruff": "always"
+        }
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "git.autofetch": true,
+    "python.terminal.executeInFileDir": true,
+    "flake8.args": [
+        "--max-line-length",
+        "120",
+        "--experimental"
+    ],
+    "black-formatter.args": [
+        "--line-length",
+        "79"
+    ],
+    "code-runner.runInTerminal": true,
+    "notebook.outline.showCodeCells": true,
+    "editor.fontLigatures": true,
+    "indentRainbow.colors": [
+        "rgba(53, 80, 112,0.15)",
+        "rgba(109, 89, 122,0.15)",
+        "rgba(181, 101, 118, 0.15)",
+        "rgba(229, 107, 111,0.15)",
+        "rgba(234, 172, 139,0.15)",
+        "rgba(234, 172, 139,0.1)",
+        "rgba(234, 172, 139,0.05)"
+    ],
+    "extensions.ignoreRecommendations": true,
+    "indentRainbow.excludedLanguages": [
+        "plaintext"
+    ],
+    "indentRainbow.ignoreErrorLanguages": [
+        "haskell",
+        "markdown"
+    ],
+    "ruff.lineLength": 120,
+    "errorLens.gutterIconsEnabled": true,
+    "remote.SSH.configFile": "/home/pierre/.ssh/config",
+    "remote.SSH.remotePlatform": {},
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.tabWidth": 4,
+    "prettier.bracketSameLine": true,
+    "prettier.printWidth": 120,
+    "notebook.lineNumbers": "on",
+    "codeium.enableConfig": {
+        "*": true,
+        "rmd": true
+    },
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "codeium.enableCodeLens": false,
+    "hediet.vscode-drawio.resizeImages": null
+}
