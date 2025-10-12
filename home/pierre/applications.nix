@@ -1,3 +1,4 @@
+{pkgs, ...}:
 {
     imports = [
         ./applications/vscode/vscode.nix
@@ -13,4 +14,8 @@
             "com.discordapp.Discord"
         ];
     };
+
+    home.packages = with pkgs; [
+        zapzap # whatsapp
+    ];
 }
