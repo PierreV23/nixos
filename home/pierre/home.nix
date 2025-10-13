@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   home.stateVersion = "25.05";
 
@@ -9,12 +9,21 @@
     };
   };
 
+  # home.keyboard = { # doesnt seem to do anything, gnome seems to override this
+  #   layout = "us";
+  #   variant = "altgr-intl";
+  # };
+
   imports = [
     ./applications.nix
   ];
   
   # Enable dconf for GNOME settings
   dconf.settings = {
+      "org/gnome/desktop/input-sources" = {
+        sources = [ (lib.hm.gvariant.mkTuple [ "xkb" "us+altgr-intl" ]) ];
+        xkb-options = [ "compose:rctrl" ];
+      };
 
       "org/gnome/desktop/peripherals/touchpad" = {
       # Right click with corner tap instead of two-finger tap
