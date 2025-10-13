@@ -41,6 +41,18 @@
             { from = 1714; to = 1764; }  # KDE Connect/GSConnect
         ];
     };
+    # Enable KVM for best virtualization performance
+    virtualisation = {
+        # Enable libvirtd with full KVM support
+        libvirtd = {
+            enable = true;
+            qemu = {
+                package = pkgs.qemu_kvm;
+                runAsRoot = true;
+            };
+        };
+    };
+
     imports =
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
@@ -120,14 +132,14 @@
     users.users.pierre = {
         isNormalUser = true;
         description = "Pierre";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "libvirtd" "qemu-libvirtd"];
         packages = with pkgs; [
         #  thunderbird
         ];
     };
 
     # Install firefox.
-    programs.firefox.enable = true;
+    # programs.firefox.enable = true;
 
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
@@ -138,6 +150,9 @@
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
         git
+        vagrant
+        libvirt
+        qemu_kvm
     ];
 
     # Some programs need SUID wrappers, can be configured further or are

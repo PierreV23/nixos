@@ -3,6 +3,7 @@
     imports = [
         ./applications/vscode/vscode.nix
         ./applications/firefox/firefox.nix
+        ./starship.nix
     ];
 
     services.flatpak = {
@@ -12,6 +13,7 @@
         packages = [
             "com.modrinth.ModrinthApp"
             "com.discordapp.Discord"
+            "app.zen_browser.zen"
         ];
     };
 

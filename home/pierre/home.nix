@@ -1,12 +1,29 @@
 { config, pkgs, ... }:
 {
   home.stateVersion = "25.05";
+
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      lla = "ll -a";
+    };
+  };
+
   imports = [
     ./applications.nix
   ];
   
   # Enable dconf for GNOME settings
   dconf.settings = {
+
+      "org/gnome/desktop/peripherals/touchpad" = {
+      # Right click with corner tap instead of two-finger tap
+      click-method = "areas";  # "fingers" for two-finger tap, "areas" for corner tap
+      
+      # Natural scrolling
+      natural-scroll = true;
+    };
+    
     # Enable minimize and maximize buttons
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
@@ -43,6 +60,7 @@
         "weatherornot@somepaulo.github.io"
         "drive-menu@gnome-shell-extensions.gcampax.github.com"
         "gsconnect@andyholmes.github.io"
+        "appindicatorsupport@rgcjonas.gmail.com"
       ];
       favorite-apps = [
         "firefox.desktop"
@@ -118,5 +136,6 @@
     gnomeExtensions.clipboard-indicator
     gnomeExtensions.weather-or-not
     gnomeExtensions.gsconnect
+    gnomeExtensions.appindicator
   ];
 }
