@@ -43,12 +43,17 @@
     };
     # Enable KVM for best virtualization performance
     virtualisation = {
+        docker = {
+            enable = true;
+        };
         # Enable libvirtd with full KVM support
         libvirtd = {
             enable = true;
             qemu = {
                 package = pkgs.qemu_kvm;
                 runAsRoot = true;
+                ovmf.enable = true;
+                swtpm.enable = true;
             };
         };
     };
@@ -132,7 +137,7 @@
     users.users.pierre = {
         isNormalUser = true;
         description = "Pierre";
-        extraGroups = [ "networkmanager" "wheel" "libvirtd" "qemu-libvirtd"];
+        extraGroups = [ "networkmanager" "wheel" "libvirtd" "qemu-libvirtd" "docker"];
         packages = with pkgs; [
         #  thunderbird
         ];
@@ -153,6 +158,11 @@
         vagrant
         libvirt
         qemu_kvm
+        virt-manager # viewing VMs
+        spice # view/display manager thingy for VMs
+        spice-gtk
+        spice-protocol
+        win-virtio # to support copy/pasting to and from VMs (guest machine requires virtio drivers)
     ];
 
     # Some programs need SUID wrappers, can be configured further or are
