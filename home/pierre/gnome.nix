@@ -10,11 +10,11 @@
         "org/gnome/desktop/peripherals/touchpad" = {
         # Right click with corner tap instead of two-finger tap
         click-method = "areas";  # "fingers" for two-finger tap, "areas" for corner tap
-        
+
         # Natural scrolling
         natural-scroll = true;
         };
-        
+
         # Enable minimize and maximize buttons
         "org/gnome/desktop/wm/preferences" = {
         button-layout = "appmenu:minimize,maximize,close";
@@ -29,17 +29,17 @@
         clock-show-weekday = true;
         show-battery-percentage = true;
         };
-        
+
         # Shell theme
         "org/gnome/shell/extensions/user-theme" = {
         name = "Adwaita-dark";
         };
-        
+
         # Disable the default Win+V calendar shortcut
         "org/gnome/shell/keybindings" = {
         toggle-message-tray = [];
         };
-        
+
         # Enable extensions
         "org/gnome/shell" = {
         disable-user-extensions = false;
@@ -56,11 +56,11 @@
         favorite-apps = [
             "firefox.desktop"
             "org.gnome.Nautilus.desktop"
-            "org.gnome.Console.desktop"
+            "kitty.desktop"
             "code.desktop"
         ];
         };
-        
+
         "org/gnome/shell/extensions/dash-to-dock" = {
         dock-position = "BOTTOM";
         dock-fixed = false;
@@ -78,7 +78,7 @@
         min-alpha = 0.2;
         max-alpha = 0.2;
         };
-        
+
         # Vitals
         "org/gnome/shell/extensions/vitals" = {
         hot-sensors = [
@@ -88,25 +88,25 @@
         ];
         position-in-panel = 2;
         };
-        
+
         # Blur My Shell
         "org/gnome/shell/extensions/blur-my-shell/panel" = {
         blur = true;
         override-background = true;
         style-panel = 1;
         };
-        
+
         "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
         blur = true;
         override-background = true;
         style-dash-to-dock = 1;
         };
-        
+
         "org/gnome/shell/extensions/blur-my-shell/overview" = {
         blur = true;
         style-components = 1;
         };
-        
+
         # Clipboard Indicator - Win+V
         "org/gnome/shell/extensions/clipboard-indicator" = {
         toggle-menu = ["<Super>v"];
@@ -114,7 +114,7 @@
         display-mode = 0;
         };
     };
-    
+
     # Install packages and extensions
     home.packages = with pkgs; [
         gnome-tweaks

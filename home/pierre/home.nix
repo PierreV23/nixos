@@ -10,6 +10,6 @@
   imports = [
     ./applications.nix
     ./gnome.nix
-    ./shell.nix
+    ./shell
   ];
 }
