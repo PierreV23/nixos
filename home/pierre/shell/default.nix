@@ -19,6 +19,10 @@
     lla = "ls -la";
     latr = "ls -latr";
     please = "sudo !!";
+    ".." = "cd ..";
+    "..." = "cd ../..";
+    grep = "grep --color=auto";
+    diff = "diff --color=auto";
   };
 
   programs.kitty = {
@@ -33,5 +37,17 @@
       update_check_interval = 0;
       window_padding_width = 8;
     };
+    extraConfig = ''
+      linux_display_server wayland
+    '';
+  };
+
+  xdg.desktopEntries.kitty = {
+    name = "kitty";
+    genericName = "Terminal emulator";
+    exec = ''kitty -T " "'';
+    icon = "kitty";
+    terminal = false;
+    categories = [ "System" "TerminalEmulator" ];
   };
 }

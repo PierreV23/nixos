@@ -42,6 +42,10 @@ preexec() {
 precmd() {
   vcs_info
 
+  # Set window title to something static or nothing
+  print -Pn "\e]0;zsh shell\a"  # Sets window title to just "kitty"
+  # Or use an empty title: print -Pn "\e]0;\a"
+
   # Calculate execution time
   if [[ -n $cmd_start_time ]]; then
     local elapsed=$((SECONDS - cmd_start_time))

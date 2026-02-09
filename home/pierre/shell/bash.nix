@@ -26,4 +26,6 @@
   };
 
   programs.kitty.settings.shell = "${pkgs.bash}/bin/bash"; # overwritten by zsh.nix
+
+  programs.direnv.enableBashIntegration = true;
 }
