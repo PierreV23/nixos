@@ -173,6 +173,7 @@ prompt_status() {
 }
 
 # Build the prompt - ALWAYS show arrow
-PROMPT='%F{cyan}↑%f $(prompt_status)${cmd_exec_time}
+PROMPT='
+%F{cyan}↑%f $(prompt_status)${cmd_exec_time}
 %F{yellow}[$(date +%H:%M:%S)]%f %F{blue}%n%f@%F{white}%m%f$(prompt_path)${vcs_info_msg_0_}
 '
