@@ -1,5 +1,78 @@
 # yes this is all AI slop
 
+# Function to display kitty shortcuts
+kitty-help() {
+  local cyan="\033[1;36m"
+  local yellow="\033[1;33m"
+  local gray="\033[2m"
+  local reset="\033[0m"
+
+  echo "\n${cyan}═══ Kitty Keyboard Shortcuts ═══${reset}\n"
+
+  echo "${yellow}Tabs:${reset}"
+  echo "  Ctrl+Shift+T         New tab"
+  echo "  Ctrl+Shift+Q         Close tab"
+  echo "  Ctrl+Shift+Right     Next tab"
+  echo "  Ctrl+Shift+Left      Previous tab"
+  echo "  Ctrl+Shift+.         Move tab forward"
+  echo "  Ctrl+Shift+,         Move tab backward"
+  echo "  Ctrl+Shift+Alt+T     Rename tab"
+  echo ""
+
+  echo "${yellow}Windows:${reset}"
+  echo "  Ctrl+Shift+Enter     New window"
+  echo "  Ctrl+Shift+N         New OS window"
+  echo "  Ctrl+Shift+W         Close window"
+  echo "  Ctrl+Shift+]         Next window"
+  echo "  Ctrl+Shift+[         Previous window"
+  echo "  Ctrl+Shift+F         Move window forward"
+  echo "  Ctrl+Shift+B         Move window backward"
+  echo "  Ctrl+Shift+\`         Move window to top"
+  echo "  Ctrl+Shift+R         Resize window (interactive)"
+  echo ""
+
+  echo "${yellow}Layouts:${reset}"
+  echo "  Ctrl+Shift+L         Cycle layouts (stack/tall/fat/grid/etc)"
+  echo ""
+
+  echo "${yellow}Scrolling:${reset}"
+  echo "  Ctrl+Shift+Up        Scroll line up"
+  echo "  Ctrl+Shift+Down      Scroll line down"
+  echo "  Ctrl+Shift+Page Up   Scroll page up"
+  echo "  Ctrl+Shift+Page Dn   Scroll page down"
+  echo "  Ctrl+Shift+Home      Scroll to top"
+  echo "  Ctrl+Shift+End       Scroll to bottom"
+  echo "  Ctrl+Shift+H         Browse scrollback in pager"
+  echo "  Ctrl+Shift+G         Browse last command output"
+  echo ""
+
+  echo "${yellow}Clipboard & Font:${reset}"
+  echo "  Ctrl+Shift+C         Copy to clipboard"
+  echo "  Ctrl+Shift+V         Paste from clipboard"
+  echo "  Ctrl+Shift+S         Paste from selection"
+  echo "  Ctrl+Shift+Equal     Increase font size"
+  echo "  Ctrl+Shift+Minus     Decrease font size"
+  echo "  Ctrl+Shift+Backspace Reset font size"
+  echo ""
+
+  echo "${yellow}Other:${reset}"
+  echo "  Ctrl+Shift+F11       Toggle fullscreen"
+  echo "  Ctrl+Shift+F2        Edit kitty.conf"
+  echo "  Ctrl+Shift+F5        Reload kitty.conf"
+  echo "  Ctrl+Shift+F6        Show current config"
+  echo "  Ctrl+Shift+Delete    Clear terminal"
+  echo "  Ctrl+Shift+E         Open URL with hints"
+  echo "  Ctrl+Shift+Escape    Kitty shell (remote control)"
+  echo "  Ctrl+Shift+U         Input unicode character"
+
+  echo "\n${gray}Type 'kitty-help' to see this again${reset}\n"
+}
+
+# Display shortcuts on first kitty launch
+if [[ $TERM == "xterm-kitty" && -z "$KITTY_HELP_SHOWN" ]]; then
+  export KITTY_HELP_SHOWN=1
+  kitty-help
+fi
 
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
