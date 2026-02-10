@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./zsh # zsh will take precedence over bash (not due to order, i just tell zsh to force itself)
@@ -23,9 +23,14 @@
     "..." = "cd ../..";
     grep = "grep --color=auto";
     diff = "diff --color=auto";
-    cbc = "wl-copy";
-    cbp = "wl-paste";
   };
+
+  home.packages = [
+    # insane alias coding 😎
+    (pkgs.writeShellScriptBin "cbc" "wl-copy \"$@\"")
+    (pkgs.writeShellScriptBin "cbp" "wl-paste \"$@\"")
+  ];
+
 
   programs.kitty = {
     enable = true;
