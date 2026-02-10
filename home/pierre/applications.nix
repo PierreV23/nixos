@@ -4,6 +4,7 @@
     imports = [
         ./applications/vscode/vscode.nix
         ./applications/firefox/firefox.nix
+        ./signal.nix
     ];
 
     # Flatpak is a quite popular 'appstore'. Flatpak has both official and 3rd party repacked apps
@@ -45,7 +46,6 @@
 
         moonlight-qt # Moonlight: connects to remote desktop sunlight servers
 
-        signal-desktop
         wl-clipboard  # wl-copy/wl-paste
     ];
 
