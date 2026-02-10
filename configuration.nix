@@ -12,7 +12,7 @@
         enable = true;
         enableDemoAgent = false;
         geoProviderUrl = "https://location.services.mozilla.com/v1/geolocate?key=geoclue";
-        
+
         # Allow GNOME Weather and Shell to use location
         appConfig = {
             "gnome-weather" = {
@@ -49,14 +49,33 @@
         # Enable libvirtd with full KVM support
         libvirtd = {
             enable = true;
+
+            # package = pkgs.qemu_kvm.override {
+            #             virtiofsdSupport = true;
+            #         };
+
             qemu = {
                 package = pkgs.qemu_kvm;
                 runAsRoot = true;
                 ovmf.enable = true;
+                # ovmf.packages = [ pkgs.OVMF.fd ];
+                ovmf.packages = [ pkgs.OVMFFull.fd ];  # i still have no clue why this is needed 👍
                 swtpm.enable = true;
+                vhostUserPackages = [ pkgs.virtiofsd ];
             };
         };
     };
+
+    # systemd.services.libvirtd = {
+    #     path = [ pkgs.virtiofsd pkgs.swtpm ];
+    #     serviceConfig = {
+    #         Environment = "PATH=${pkgs.virtiofsd}/bin:${pkgs.swtpm}/bin:$PATH";
+    #     };
+    # };
+
+    systemd.tmpfiles.rules = [
+      "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware"
+    ];
 
     imports =
         [ # Include the results of the hardware scan.
@@ -75,7 +94,14 @@
     # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
     # Enable networking
-    networking.networkmanager.enable = true;
+
+    networking.networkmanager = {
+        enable = true;
+        plugins = with pkgs; [
+          networkmanager-openconnect # supports plethora of vpn protocols afaik
+          networkmanager-l2tp  # WireGuard support
+        ];
+      };
 
     # Set your time zone.
     time.timeZone = "Europe/Amsterdam";
@@ -159,13 +185,62 @@
         git
         vagrant
         libvirt
-        qemu_kvm
+        qemu_kvm # the one behind it all (kenjaku)
+
         virt-manager # viewing VMs
+
+        virtiofsd # shared fs
+        # (qemu_kvm.override {
+        #     extraPackages = [ virtiofsd ];
+        # }) # this would throw an error
+
         spice # view/display manager thingy for VMs
         spice-gtk
         spice-protocol
+
+        swtpm # software tpm, required for windows vm
         win-virtio # to support copy/pasting to and from VMs (guest machine requires virtio drivers)
+
+        wireguard-tools
     ];
+
+    programs.nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        stdenv.cc.cc # c(pp) compiler libraries
+
+        # fetching (bark)
+        curl
+        wget
+
+        openssl # ssl
+
+        libssh # ssh
+
+        libxml2 # xml parser
+
+        # file stuff
+        attr
+        acl # acces control list (idk why i need this tbh)
+
+        util-linux # core utils or smht
+
+        # compression libraries
+        bzip2
+        libsodium
+        xz
+        zlib
+        zstd
+
+        systemd # idk if this is needed here but im too scared to delete it :eyes:
+
+        networkmanagerapplet # network manager app
+
+        quickemu # easy way to manage vms but iirc its kinda trash so i'll delete it (TODO)
+
+        qemu # the second behind it all (??, idk kenjaku 2)
+      ];
+    };
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
@@ -194,4 +269,15 @@
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "25.05"; # Did you read the comment?
 
+
+    # Bandaid patch to stop NixOS from listening to 'wake on lan' packets via ethernet, even tho it was already disabled in BIOS
+    systemd.services.disable-wol = {
+      description = "Disable Wake-on-LAN";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "network.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.ethtool}/bin/ethtool -s enp0s31f6 wol d";
+      };
+    };
 }
