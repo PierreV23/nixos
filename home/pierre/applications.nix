@@ -45,7 +45,8 @@
 
         moonlight-qt # Moonlight: connects to remote desktop sunlight servers
 
-
+        signal-desktop
+        wl-clipboard  # wl-copy/wl-paste
     ];
 
     # Code/text editor written in rust(lang)

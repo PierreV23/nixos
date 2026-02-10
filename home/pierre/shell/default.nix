@@ -23,6 +23,8 @@
     "..." = "cd ../..";
     grep = "grep --color=auto";
     diff = "diff --color=auto";
+    cbc = "wl-copy";
+    cbp = "wl-paste";
   };
 
   programs.kitty = {
