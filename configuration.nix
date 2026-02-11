@@ -36,24 +36,26 @@
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
         git
 
         wireguard-tools
 
         # home manager cli
         home-manager
+
+        # fetching (bark)
+        curl
+        wget
+
+        networkmanagerapplet # network manager app
+
+        quickemu # easy way to manage vms but iirc its kinda trash so i'll delete it (TODO)
     ];
 
     programs.nix-ld = {
       enable = true;
       libraries = with pkgs; [
         stdenv.cc.cc # c(pp) compiler libraries
-
-        # fetching (bark)
-        curl
-        wget
 
         openssl # ssl
 
@@ -75,12 +77,6 @@
         zstd
 
         systemd # idk if this is needed here but im too scared to delete it :eyes:
-
-        networkmanagerapplet # network manager app
-
-        quickemu # easy way to manage vms but iirc its kinda trash so i'll delete it (TODO)
-
-        qemu # the second behind it all (??, idk kenjaku 2)
       ];
     };
 

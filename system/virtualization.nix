@@ -45,6 +45,7 @@
     # (qemu_kvm.override {
     #     extraPackages = [ virtiofsd ];
     # }) # this would throw an error
+    # qemu # the second behind it all (??, idk kenjaku 2)
 
 
     # Required on system
