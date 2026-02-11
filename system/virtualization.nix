@@ -50,12 +50,5 @@
     # Required on system
     win-virtio # to support copy/pasting to and from VMs (guest machine requires virtio drivers)
 
-    # TODO move to home packages
-    libvirt
-    virt-manager # viewing VMs
-    spice # view/display manager thingy for VMs
-    spice-gtk
-    spice-protocol
-    vagrant
   ];
 }

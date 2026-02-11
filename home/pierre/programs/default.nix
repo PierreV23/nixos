@@ -46,6 +46,14 @@
     moonlight-qt # Moonlight: connects to remote desktop sunlight servers
 
     wl-clipboard # wl-copy/wl-paste
+
+    # vm stuff
+    libvirt
+    virt-manager # viewing VMs
+    spice # view/display manager thingy for VMs
+    spice-gtk
+    spice-protocol
+    vagrant
   ];
 
   # Code/text editor written in rust(lang)
