@@ -6,7 +6,6 @@
 
 {
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    services.flatpak.enable = true;
 
     networking.firewall = {
         enable = true;
@@ -22,6 +21,9 @@
     imports =
         [ # Include the results of the hardware scan.
         ./hardware-configuration.nix
+
+        # system config
+        ./system
         ];
 
     # Bootloader.
