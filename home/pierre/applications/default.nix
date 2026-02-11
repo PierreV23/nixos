@@ -1,9 +1,8 @@
 { pkgs, ... }:
 {
-  # Import applications with more complex configuration. (TODO: just import the folders, rename ....nix to default.nix)
   imports = [
-    ./applications/vscode/vscode.nix
-    ./applications/firefox/firefox.nix
+    ./vscode
+    ./firefox
     ./signal.nix
   ];
 

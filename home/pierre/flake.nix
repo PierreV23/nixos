@@ -21,7 +21,7 @@
 
   outputs =
     {
-      self,
+      # self,
       nixpkgs,
       nixpkgs-unstable,
       home-manager,

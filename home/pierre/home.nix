@@ -12,7 +12,7 @@
   # };
 
   imports = [
-    ./applications.nix
+    ./applications
     ./gnome.nix
     ./shell
   ];
