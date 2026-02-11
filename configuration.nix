@@ -18,61 +18,6 @@
     ./system
   ];
 
-  programs.zsh.enable = true;
-
-  # Install firefox.
-  # programs.firefox.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    git
-
-    wireguard-tools
-
-    # home manager cli
-    home-manager
-
-    # fetching (bark)
-    curl
-    wget
-
-    networkmanagerapplet # network manager app
-
-    quickemu # easy way to manage vms but iirc its kinda trash so i'll delete it (TODO)
-  ];
-
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc # c(pp) compiler libraries
-
-      openssl # ssl
-
-      libssh # ssh
-
-      libxml2 # xml parser
-
-      # file stuff
-      attr
-      acl # acces control list (idk why i need this tbh)
-
-      util-linux # core utils or smht
-
-      # compression libraries
-      bzip2
-      libsodium
-      xz
-      zlib
-      zstd
-
-      systemd # idk if this is needed here but im too scared to delete it :eyes:
-    ];
-  };
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
