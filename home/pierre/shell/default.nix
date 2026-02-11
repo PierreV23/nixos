@@ -34,7 +34,7 @@
   home.packages = [
     # insane alias coding 😎
     (pkgs.writeShellScriptBin "cbc" ''
-      ${pkgs.ansifilter}/bin/ansifilter | wl-copy "$@"
+      ${pkgs.ansifilter}/bin/ansifilter | wl-copy "$@" --type text/plain
     '')
     (pkgs.writeShellScriptBin "cbp" "wl-paste \"$@\"")
   ];
