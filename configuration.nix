@@ -17,41 +17,7 @@
             { from = 1714; to = 1764; }  # KDE Connect/GSConnect
         ];
     };
-    # Enable KVM for best virtualization performance
-    virtualisation = {
-        docker = {
-            enable = true;
-        };
-        # Enable libvirtd with full KVM support
-        libvirtd = {
-            enable = true;
 
-            # package = pkgs.qemu_kvm.override {
-            #             virtiofsdSupport = true;
-            #         };
-
-            qemu = {
-                package = pkgs.qemu_kvm;
-                runAsRoot = true;
-                ovmf.enable = true;
-                # ovmf.packages = [ pkgs.OVMF.fd ];
-                ovmf.packages = [ pkgs.OVMFFull.fd ];  # i still have no clue why this is needed 👍
-                swtpm.enable = true;
-                vhostUserPackages = [ pkgs.virtiofsd ];
-            };
-        };
-    };
-
-    # systemd.services.libvirtd = {
-    #     path = [ pkgs.virtiofsd pkgs.swtpm ];
-    #     serviceConfig = {
-    #         Environment = "PATH=${pkgs.virtiofsd}/bin:${pkgs.swtpm}/bin:$PATH";
-    #     };
-    # };
-
-    systemd.tmpfiles.rules = [
-      "L+ /var/lib/qemu/firmware - - - - ${pkgs.qemu}/share/qemu/firmware"
-    ];
 
     imports =
         [ # Include the results of the hardware scan.
@@ -159,23 +125,6 @@
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
         git
-        vagrant
-        libvirt
-        qemu_kvm # the one behind it all (kenjaku)
-
-        virt-manager # viewing VMs
-
-        virtiofsd # shared fs
-        # (qemu_kvm.override {
-        #     extraPackages = [ virtiofsd ];
-        # }) # this would throw an error
-
-        spice # view/display manager thingy for VMs
-        spice-gtk
-        spice-protocol
-
-        swtpm # software tpm, required for windows vm
-        win-virtio # to support copy/pasting to and from VMs (guest machine requires virtio drivers)
 
         wireguard-tools
 
