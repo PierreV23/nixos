@@ -27,6 +27,8 @@
     "..." = "cd ../..";
     grep = "grep --color=auto";
     diff = "diff --color=auto";
+    hmrb = "home-manager switch --flake /etc/nixos/home/pierre#pierre";
+    norb = "sudo nixos-rebuild switch";
   };
 
   home.packages = [
