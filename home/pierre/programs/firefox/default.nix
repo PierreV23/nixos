@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-unstable,
   ...
 }:
 let
@@ -7,6 +8,7 @@ in
 {
   programs.firefox = {
     enable = true;
+    package = pkgs-unstable.firefox;
 
     profiles.default = {
       id = 0;
