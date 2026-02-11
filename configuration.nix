@@ -15,9 +15,6 @@
         ./system
         ];
 
-    # Bootloader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
 
     # Enable the X11 windowing system.
     services.xserver.enable = true;
