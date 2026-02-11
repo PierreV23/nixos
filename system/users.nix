@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pierre = {
@@ -12,6 +12,6 @@
       "qemu-libvirtd"
       "docker"
     ];
-    packages = []; # pkgs.<>
+    packages = [ ]; # pkgs.<>
   };
 }
