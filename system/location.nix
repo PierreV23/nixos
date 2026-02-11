@@ -1,7 +1,6 @@
 {...}:
 {
   # this is required if a user wants widgets to use geoclue
-
   services.geoclue2 = {
       enable = true;
       enableDemoAgent = false;
@@ -18,5 +17,11 @@
               isSystem = true;
           };
       };
+  };
+
+  # Also enable location services
+  services.avahi = {
+      enable = true;
+      nssmdns4 = true;
   };
 }

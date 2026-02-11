@@ -8,12 +8,6 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     services.flatpak.enable = true;
 
-    # Also enable location services
-    services.avahi = {
-        enable = true;
-        nssmdns4 = true;
-    };
-
     networking.firewall = {
         enable = true;
         allowedTCPPortRanges = [
