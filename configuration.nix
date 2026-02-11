@@ -202,6 +202,9 @@
         win-virtio # to support copy/pasting to and from VMs (guest machine requires virtio drivers)
 
         wireguard-tools
+
+        # home manager cli
+        home-manager
     ];
 
     programs.nix-ld = {

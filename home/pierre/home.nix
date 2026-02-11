@@ -2,6 +2,10 @@
 {
   home.stateVersion = "25.05";
 
+  # required because of home manager
+  home.username = "pierre";
+  home.homeDirectory = "/home/pierre";
+
   # home.keyboard = { # doesnt seem to do anything, gnome seems to override this
   #   layout = "us";
   #   variant = "altgr-intl";
