@@ -1,10 +1,7 @@
 { pkgs, ... }:
 {
-  # allow 'unfree' packages
-  nixpkgs.config.allowUnfree = true;
-
   # shells
-  programs.bash.enable = true;
+  # programs.bash.enable = true; # actually not needed (doesnt even build), always available on nixos system by default
   programs.zsh.enable = true;
 
   # to search packages: `nix search <>`

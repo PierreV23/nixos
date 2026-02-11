@@ -1,32 +1,29 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   };
 
   outputs =
     {
-      self,
+      # self,
       nixpkgs,
-      nixpkgs-unstable,
+      # nixpkgs-unstable,
       ...
     }:
     let
       system = "x86_64-linux";
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      # pkgs-unstable = import nixpkgs-unstable {
+      #   inherit system;
+      #   config.allowUnfree = true;
+      # };
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           ./configuration.nix
-          {
-            nixpkgs.config.allowUnfree = true;
-          }
         ];
       };
     };
