@@ -3,7 +3,7 @@
   programs.direnv.enableZshIntegration = true;
 
   home.sessionVariables = {
-    SHELL = "${pkgs.zsh}/bin/zsh";# TODO, dunno if this actually does anything :D
+    SHELL = "${pkgs.zsh}/bin/zsh"; # TODO, dunno if this actually does anything :D
   };
 
   programs.starship.enableZshIntegration = lib.mkForce false; # should always be off, im using my own custom zsh logic
@@ -30,7 +30,8 @@
           owner = "MichaelAquilina";
           repo = "zsh-you-should-use";
           rev = "1.7.3";
-          sha256 = "sha256-/uVFyplnlg9mETMi7myIndO6IG7Wr9M7xDFfY1pG5Lc=";        };
+          sha256 = "sha256-/uVFyplnlg9mETMi7myIndO6IG7Wr9M7xDFfY1pG5Lc=";
+        };
       }
     ];
 

@@ -5,117 +5,125 @@
 { config, pkgs, ... }:
 
 {
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-    imports =
-        [ # Include the results of the hardware scan.
-        ./hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
 
-        # system config
-        ./system
-        ];
+    # system config
+    ./system
+  ];
 
-    programs.zsh.enable = true;
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.pierre = {
-        isNormalUser = true;
-        description = "Pierre";
-        shell = pkgs.zsh;  # Add this line
-        extraGroups = [ "networkmanager" "wheel" "libvirtd" "qemu-libvirtd" "docker"];
-        packages = with pkgs; [
-        #  thunderbird
-        ];
-    };
-
-    # Install firefox.
-    # programs.firefox.enable = true;
-
-    # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
-
-    # List packages installed in system profile. To search, run:
-    # $ nix search wget
-    environment.systemPackages = with pkgs; [
-        git
-
-        wireguard-tools
-
-        # home manager cli
-        home-manager
-
-        # fetching (bark)
-        curl
-        wget
-
-        networkmanagerapplet # network manager app
-
-        quickemu # easy way to manage vms but iirc its kinda trash so i'll delete it (TODO)
+  programs.zsh.enable = true;
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.pierre = {
+    isNormalUser = true;
+    description = "Pierre";
+    shell = pkgs.zsh; # Add this line
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "libvirtd"
+      "qemu-libvirtd"
+      "docker"
     ];
+    packages = with pkgs; [
+      #  thunderbird
+    ];
+  };
 
-    programs.nix-ld = {
-      enable = true;
-      libraries = with pkgs; [
-        stdenv.cc.cc # c(pp) compiler libraries
+  # Install firefox.
+  # programs.firefox.enable = true;
 
-        openssl # ssl
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
-        libssh # ssh
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    git
 
-        libxml2 # xml parser
+    wireguard-tools
 
-        # file stuff
-        attr
-        acl # acces control list (idk why i need this tbh)
+    # home manager cli
+    home-manager
 
-        util-linux # core utils or smht
+    # fetching (bark)
+    curl
+    wget
 
-        # compression libraries
-        bzip2
-        libsodium
-        xz
-        zlib
-        zstd
+    networkmanagerapplet # network manager app
 
-        systemd # idk if this is needed here but im too scared to delete it :eyes:
-      ];
+    quickemu # easy way to manage vms but iirc its kinda trash so i'll delete it (TODO)
+  ];
+
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc # c(pp) compiler libraries
+
+      openssl # ssl
+
+      libssh # ssh
+
+      libxml2 # xml parser
+
+      # file stuff
+      attr
+      acl # acces control list (idk why i need this tbh)
+
+      util-linux # core utils or smht
+
+      # compression libraries
+      bzip2
+      libsodium
+      xz
+      zlib
+      zstd
+
+      systemd # idk if this is needed here but im too scared to delete it :eyes:
+    ];
+  };
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "25.05"; # Did you read the comment?
+
+  # Bandaid patch to stop NixOS from listening to 'wake on lan' packets via ethernet, even tho it was already disabled in BIOS
+  systemd.services.disable-wol = {
+    description = "Disable Wake-on-LAN";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.ethtool}/bin/ethtool -s enp0s31f6 wol d";
     };
-
-    # Some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    # programs.mtr.enable = true;
-    # programs.gnupg.agent = {
-    #   enable = true;
-    #   enableSSHSupport = true;
-    # };
-
-    # List services that you want to enable:
-
-    # Enable the OpenSSH daemon.
-    # services.openssh.enable = true;
-
-    # Open ports in the firewall.
-    # networking.firewall.allowedTCPPorts = [ ... ];
-    # networking.firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
-
-    # This value determines the NixOS release from which the default
-    # settings for stateful data, like file locations and database versions
-    # on your system were taken. It‘s perfectly fine and recommended to leave
-    # this value at the release version of the first install of this system.
-    # Before changing this value read the documentation for this option
-    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-    system.stateVersion = "25.05"; # Did you read the comment?
-
-
-    # Bandaid patch to stop NixOS from listening to 'wake on lan' packets via ethernet, even tho it was already disabled in BIOS
-    systemd.services.disable-wol = {
-      description = "Disable Wake-on-LAN";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      serviceConfig = {
-        Type = "oneshot";
-        ExecStart = "${pkgs.ethtool}/bin/ethtool -s enp0s31f6 wol d";
-      };
-    };
+  };
 }

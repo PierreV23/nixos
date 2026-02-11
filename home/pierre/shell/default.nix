@@ -12,7 +12,10 @@
   # Fuzzy finder. Used for viewing history (ctrl+r) and searching files (ctrl+t) inside terminal.
   programs.fzf = {
     enable = true;
-    defaultOptions = [ "--height 40%" "--border" ];
+    defaultOptions = [
+      "--height 40%"
+      "--border"
+    ];
     fileWidgetOptions = [ "--preview 'bat --color=always --style=numbers --line-range=:500 {}'" ]; # Preview files with 'bat'
   };
 

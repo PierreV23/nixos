@@ -1,13 +1,19 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
   networking.firewall = {
-      enable = true;
-      allowedTCPPortRanges = [
-          { from = 1714; to = 1764; }  # KDE Connect/GSConnect
-      ];
-      allowedUDPPortRanges = [
-          { from = 1714; to = 1764; }  # KDE Connect/GSConnect
-      ];
+    enable = true;
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      } # KDE Connect/GSConnect
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      } # KDE Connect/GSConnect
+    ];
   };
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -20,10 +26,10 @@
   # Enable networking
 
   networking.networkmanager = {
-      enable = true;
-      plugins = with pkgs; [
-        networkmanager-openconnect # supports plethora of vpn protocols afaik
-        networkmanager-l2tp  # WireGuard support
-      ];
-    };
+    enable = true;
+    plugins = with pkgs; [
+      networkmanager-openconnect # supports plethora of vpn protocols afaik
+      networkmanager-l2tp # WireGuard support
+    ];
+  };
 }

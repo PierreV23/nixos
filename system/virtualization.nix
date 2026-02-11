@@ -1,28 +1,28 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 {
   # Enable KVM for best virtualization performance
   virtualisation = {
-      docker = {
-          enable = true;
-      };
-      # Enable libvirtd with full KVM support
-      libvirtd = {
-          enable = true;
+    docker = {
+      enable = true;
+    };
+    # Enable libvirtd with full KVM support
+    libvirtd = {
+      enable = true;
 
-          # package = pkgs.qemu_kvm.override {
-          #             virtiofsdSupport = true;
-          #         };
+      # package = pkgs.qemu_kvm.override {
+      #             virtiofsdSupport = true;
+      #         };
 
-          qemu = {
-              package = pkgs.qemu_kvm;
-              runAsRoot = true;
-              ovmf.enable = true;
-              # ovmf.packages = [ pkgs.OVMF.fd ];
-              ovmf.packages = [ pkgs.OVMFFull.fd ];  # i still have no clue why this is needed 👍
-              swtpm.enable = true;
-              vhostUserPackages = [ pkgs.virtiofsd ];
-          };
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        ovmf.enable = true;
+        # ovmf.packages = [ pkgs.OVMF.fd ];
+        ovmf.packages = [ pkgs.OVMFFull.fd ]; # i still have no clue why this is needed 👍
+        swtpm.enable = true;
+        vhostUserPackages = [ pkgs.virtiofsd ];
       };
+    };
   };
 
   # systemd.services.libvirtd = {
@@ -47,10 +47,8 @@
     # }) # this would throw an error
     # qemu # the second behind it all (??, idk kenjaku 2)
 
-
     # Required on system
     win-virtio # to support copy/pasting to and from VMs (guest machine requires virtio drivers)
-
 
     # TODO move to home packages
     libvirt

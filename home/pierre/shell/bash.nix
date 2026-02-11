@@ -12,7 +12,10 @@
     enable = true;
     enableCompletion = true;
 
-    historyControl = [ "ignoredups" "ignorespace" ];
+    historyControl = [
+      "ignoredups"
+      "ignorespace"
+    ];
     historySize = 10000;
     historyFile = "$HOME/.bash_history";
 
