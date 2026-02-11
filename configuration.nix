@@ -7,24 +7,6 @@
 {
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     services.flatpak.enable = true;
-    # In configuration.nix
-    services.geoclue2 = {
-        enable = true;
-        enableDemoAgent = false;
-        geoProviderUrl = "https://location.services.mozilla.com/v1/geolocate?key=geoclue";
-
-        # Allow GNOME Weather and Shell to use location
-        appConfig = {
-            "gnome-weather" = {
-                isAllowed = true;
-                isSystem = false;
-            };
-            "org.gnome.Shell" = {
-                isAllowed = true;
-                isSystem = true;
-            };
-        };
-    };
 
     # Also enable location services
     services.avahi = {
