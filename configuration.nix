@@ -21,6 +21,10 @@
     "flakes"
   ];
 
+  security.sudo.extraConfig = ''
+    Defaults pwfeedback
+  '';
+
   # Bandaid patch to stop NixOS from listening to 'wake on lan' packets via ethernet, even tho it was already disabled in BIOS
   systemd.services.disable-wol = {
     description = "Disable Wake-on-LAN";
