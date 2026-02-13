@@ -68,6 +68,32 @@ kitty-help() {
   echo "\n${gray}Type 'kitty-help' to see this again${reset}\n"
 }
 
+# TODO check this ai code and improve it
+# Only define this custom ssh when in kitty
+if [[ "$TERM" == "xterm-kitty" ]]; then
+    ssh() {
+        # Parse arguments to find the host
+        local host_arg=""
+        local ssh_args=()
+
+        # Collect all arguments
+        for arg in "$@"; do
+            ssh_args+=("$arg")
+            # Simple heuristic: first arg without a dash is likely the host
+            if [[ -z "$host_arg" && "$arg" != -* ]]; then
+                host_arg="$arg"
+            fi
+        done
+
+        # Use kitty ssh kitten with zsh if host is found, otherwise normal ssh
+        if [[ -n "$host_arg" ]]; then
+            command kitty +kitten ssh "$@" -t '$HOME/.zsh-bin/zsh'
+        else
+            command ssh "$@"
+        fi
+    }
+fi
+
 # Display shortcuts on first kitty launch
 if [[ $TERM == "xterm-kitty" && -z "$KITTY_HELP_SHOWN" ]]; then
   export KITTY_HELP_SHOWN=1
