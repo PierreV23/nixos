@@ -5,7 +5,7 @@ with pkgs;
   common = [
     git
     git-crypt
-    
+
     # shell
     zsh
 
