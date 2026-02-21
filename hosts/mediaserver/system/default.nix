@@ -5,5 +5,6 @@
     ./programs.nix
     ./users.nix
     ./vpn.nix
+    ./virtualization.nix
   ];
 }
