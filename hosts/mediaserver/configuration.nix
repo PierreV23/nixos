@@ -1,7 +1,6 @@
 {
   modulesPath,
   pkgs,
-  secrets,
   ...
 }:
 {
@@ -29,21 +28,6 @@
     settings.PasswordAuthentication = false;
     settings.PermitRootLogin = "prohibit-password";
   };
-
-  users.users.sjourd = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-    ];
-    openssh.authorizedKeys.keys = [
-      secrets.ssh.r7game.public_key
-    ];
-  };
-
-  users.users.root.openssh.authorizedKeys.keys = [
-    secrets.ssh.r7game.public_key
-  ];
 
   security.sudo.wheelNeedsPassword = false;
 

@@ -5,6 +5,7 @@ with pkgs;
   common = [
     git
     git-crypt
+    zsh
   ];
 
   nix = [
