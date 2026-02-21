@@ -5,7 +5,13 @@ with pkgs;
   common = [
     git
     git-crypt
+    
+    # shell
     zsh
+
+    # fetching
+    wget
+    curl
   ];
 
   nix = [
