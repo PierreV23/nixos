@@ -17,16 +17,18 @@
       #  inherit system;
       #  config.allowUnfree = true;
       #};
+      secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
     in
     {
       nixosConfigurations = {
 
         mediaserver = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit secrets; };
           modules = [
             disko.nixosModules.disko
-            ./mediaserver/disk-config.nix
-            ./mediaserver/configuration.nix
+            ./hosts/mediaserver/disk-config.nix
+            ./hosts/mediaserver/configuration.nix
           ];
         };
 
@@ -35,7 +37,7 @@
           inherit system;
           #specialArgs = { inherit pkgs-unstable; };
           modules = [
-            ./t480s/configuration.nix
+            ./hosts/t480s/configuration.nix
           ];
         };
 

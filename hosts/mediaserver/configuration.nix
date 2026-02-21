@@ -1,9 +1,12 @@
-{ modulesPath, pkgs, lib, ... }:
-let 
-  secrets = {
-    ssh.r7game.public_key = lib.trim (builtins.readFile ../secrets/ssh/r7game/pub);
-  };
-in {
+{ modulesPath, pkgs, secrets, ... }:
+{
+  imports = [
+    ./hardware-configuration.nix
+    ./system
+  ];
+
+  programs.nix-ld.enable = true;
+
   environment.systemPackages = with pkgs; [
     git
     git-crypt
@@ -12,11 +15,6 @@ in {
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
-  ];
-
-  # baseline stuff
-  imports = [
-    ./hardware-configuration.nix
   ];
 
   boot.loader.grub.enable = true;
