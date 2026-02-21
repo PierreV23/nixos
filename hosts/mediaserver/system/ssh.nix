@@ -1,4 +1,4 @@
-{ pkgs, secrets, ...}:
+{ pkgs, secrets, ... }:
 {
   systemd.tmpfiles.rules = [
     "C /root/.ssh/id_ed25519     0600 root root - ${pkgs.writeText "root-ssh-key" secrets.ssh.mediaserver.root.private_key}"

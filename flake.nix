@@ -6,12 +6,14 @@
     disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { 
+  outputs =
+    {
       self,
-      nixpkgs, 
-      #nixpkgs-unstable, 
-       disko, 
-     ... }:
+      nixpkgs,
+      #nixpkgs-unstable,
+      disko,
+      ...
+    }:
     let
       system = "x86_64-linux";
       #pkgs-unstable = import nixpkgs-unstable {
@@ -21,11 +23,16 @@
       secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
     in
     {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+
       nixosConfigurations = {
 
         mediaserver = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit secrets; repoRoot = self;};
+          specialArgs = {
+            inherit secrets;
+            repoRoot = self;
+          };
           modules = [
             disko.nixosModules.disko
             ./hosts/mediaserver/disk-config.nix

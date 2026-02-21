@@ -1,4 +1,9 @@
-{ modulesPath, pkgs, secrets, ... }:
+{
+  modulesPath,
+  pkgs,
+  secrets,
+  ...
+}:
 {
   imports = [
     ./hardware-configuration.nix
@@ -27,7 +32,10 @@
 
   users.users.sjourd = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
     openssh.authorizedKeys.keys = [
       secrets.ssh.r7game.public_key
     ];

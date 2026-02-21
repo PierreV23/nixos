@@ -19,7 +19,7 @@
 
       directory = {
         format = "[$path]($style)";
-        repo_root_format = ''[$before_root_path]($style) [$repo_root]($repo_root_style) [$path]($style) '';
+        repo_root_format = "[$before_root_path]($style) [$repo_root]($repo_root_style) [$path]($style) ";
         style = "cyan";
         repo_root_style = "bold blue";
         truncation_length = 0;
