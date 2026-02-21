@@ -7,11 +7,6 @@
 
   programs.nix-ld.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    git
-    git-crypt
-  ];
-
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"

@@ -7,6 +7,7 @@
   };
 
   outputs = { 
+      self,
       nixpkgs, 
       #nixpkgs-unstable, 
        disko, 
@@ -24,7 +25,7 @@
 
         mediaserver = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit secrets; };
+          specialArgs = { inherit secrets; repoRoot = self;};
           modules = [
             disko.nixosModules.disko
             ./hosts/mediaserver/disk-config.nix
