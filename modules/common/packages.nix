@@ -12,6 +12,15 @@ with pkgs;
     # fetching
     wget
     curl
+
+    # render folder structure
+    tree
+
+    # json parser
+    jq
+
+    # python package manager
+    uv
   ];
 
   nix = [
