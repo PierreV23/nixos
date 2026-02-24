@@ -24,6 +24,9 @@ with pkgs;
 
     # mktmp, among other things
     coreutils
+
+    # ts
+    moreutils
   ];
 
   nix = [
