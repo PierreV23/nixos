@@ -16,7 +16,7 @@
     ];
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "t480s"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary

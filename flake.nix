@@ -43,7 +43,7 @@
         };
 
         # TODO: rename to t480s
-        nixos = nixpkgs05.lib.nixosSystem {
+        t480s = nixpkgs05.lib.nixosSystem {
           inherit system;
           #specialArgs = { inherit pkgs-unstable; };
           modules = [
