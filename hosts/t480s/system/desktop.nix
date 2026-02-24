@@ -4,6 +4,7 @@
   services.xserver.enable = true;
 
   services.xserver.displayManager.gdm.enable = true;
+  services.displayManager.defaultSession = "gnome";
 
   # Enable the GNOME Desktop Environment.
   services.xserver.desktopManager.gnome.enable = true;

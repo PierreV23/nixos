@@ -68,6 +68,41 @@ kitty-help() {
   echo "\n${gray}Type 'kitty-help' to see this again${reset}\n"
 }
 
+# Use kitty ssh kitten and auto-launch remote zsh with portable config
+if [[ "$TERM" == "xterm-kitty" ]]; then
+    ssh() {
+        command kitty +kitten ssh "$@" -t 'ZDOTDIR=$HOME/.pierrev23-stuff exec $HOME/.pierrev23-stuff/.zsh-bin/zsh'
+    }
+fi
+
+# Setup portable zsh environment on a remote host
+setup-remote-zsh() {
+    local host="$1"
+    local cache="$HOME/.cache/zsh-static"
+    local remote_dir=".pierrev23-stuff"
+
+    [[ -z "$host" ]] && echo "Usage: setup-remote-zsh <host>" && return 1
+
+    if [[ ! -f "$cache" ]]; then
+        echo "Downloading static zsh..."
+        local tmp=$(mktemp -d)
+        wget -qO- https://github.com/romkatv/zsh-bin/releases/download/v3.0.1/zsh-5.8-linux-x86_64.tar.gz | tar xz -C "$tmp"
+        mkdir -p "$(dirname "$cache")"
+        mv "$tmp/zsh-5.8-linux-x86_64/bin/zsh" "$cache"
+        rm -rf "$tmp"
+    fi
+
+    echo "Uploading zsh binary..."
+    command ssh "$host" "mkdir -p $remote_dir/.zsh-bin"
+    command scp "$cache" "$host:$remote_dir/.zsh-bin/zsh-static"
+    command ssh "$host" "mv $remote_dir/.zsh-bin/zsh-static $remote_dir/.zsh-bin/zsh && chmod +x $remote_dir/.zsh-bin/zsh"
+
+    echo "Uploading config..."
+    command scp "$HOME/.zshrc.portable" "$host:$remote_dir/.zshrc"
+
+    echo "Done. Connect with: ssh $host"
+}
+
 # Display shortcuts on first kitty launch
 if [[ $TERM == "xterm-kitty" && -z "$KITTY_HELP_SHOWN" ]]; then
   export KITTY_HELP_SHOWN=1
@@ -115,9 +150,32 @@ preexec() {
 precmd() {
   vcs_info
 
-  # Set window title to something static or nothing
-  print -Pn "\e]0;zsh shell\a"  # Sets window title to just "kitty"
-  # Or use an empty title: print -Pn "\e]0;\a"
+  # Set window title
+  print -Pn "\e]0;zsh shell\a"
+
+  # Build path string (avoids subshell fork in PROMPT)
+  local git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+  if [[ -n $git_root ]]; then
+    local repo_name=${git_root:t}
+    local before_repo=${git_root:h}
+    local rel_path=${PWD#$git_root}
+
+    if [[ $before_repo == / ]]; then
+      if [[ -n $rel_path ]]; then
+        prompt_path_str=" %F{magenta}$repo_name%f %F{cyan}$rel_path%f"
+      else
+        prompt_path_str=" %F{magenta}$repo_name%f "
+      fi
+    else
+      if [[ -n $rel_path ]]; then
+        prompt_path_str=" %F{cyan}$before_repo/%f %F{magenta}$repo_name%f %F{cyan}$rel_path%f"
+      else
+        prompt_path_str=" %F{cyan}$before_repo/%f %F{magenta}$repo_name%f "
+      fi
+    fi
+  else
+    prompt_path_str=" %~"
+  fi
 
   # Calculate execution time
   if [[ -n $cmd_start_time ]]; then
@@ -140,40 +198,8 @@ precmd() {
   fi
 }
 
-# Custom path function
-prompt_path() {
-  local git_root=$(git rev-parse --show-toplevel 2>/dev/null)
-  if [[ -n $git_root ]]; then
-    local repo_name=$(basename "$git_root")
-    local before_repo="${git_root%/*}"
-    local rel_path="${PWD#$git_root}"
-
-    if [[ $before_repo == $git_root ]]; then
-      # Repo is in root
-      if [[ -z $rel_path ]]; then
-        echo " %F{magenta}$repo_name%f "
-      else
-        echo " %F{magenta}$repo_name%f %F{cyan}$rel_path%f"
-      fi
-    else
-      if [[ -z $rel_path ]]; then
-        echo " %F{cyan}$before_repo/%f %F{magenta}$repo_name%f "
-      else
-        echo " %F{cyan}$before_repo/%f %F{magenta}$repo_name%f %F{cyan}$rel_path%f"
-      fi
-    fi
-  else
-    echo " %F{cyan}%~%f"
-  fi
-}
-
-# Return status indicator
-prompt_status() {
-  echo "%(?.%F{green}SUCCESS%f.%F{red}ERROR%f)"
-}
-
-# Build the prompt - ALWAYS show arrow
+# Build the prompt
 PROMPT='
-%F{cyan}↑%f $(prompt_status)${cmd_exec_time}
-%F{yellow}[$(date +%H:%M:%S)]%f %F{blue}%n%f@%F{white}%m%f$(prompt_path)${vcs_info_msg_0_}
+%F{cyan}↑%f %(?.%F{green}SUCCESS%f.%F{red}ERROR%f)${cmd_exec_time}
+%F{yellow}[%D{%H:%M:%S}]%f %F{blue}%n%f@%F{white}%m%f${prompt_path_str}${vcs_info_msg_0_}
 '

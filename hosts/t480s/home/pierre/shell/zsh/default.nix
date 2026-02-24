@@ -54,6 +54,9 @@
     enableZshIntegration = true;
   };
 
+  # deploy portable zshrc so setup-remote-zsh can scp it
+  home.file.".zshrc.portable".source = ./.zshrc.portable;
+
   # add zsh-completions package
   home.packages = [ pkgs.zsh-completions ];
 
