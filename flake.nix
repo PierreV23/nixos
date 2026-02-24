@@ -20,7 +20,6 @@
       #  inherit system;
       #  config.allowUnfree = true;
       #};
-      secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
@@ -30,7 +29,7 @@
         mediaserver = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit secrets;
+            secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
             repoRoot = self;
           };
           modules = [
