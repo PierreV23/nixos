@@ -45,7 +45,7 @@
     # qemu # the second behind it all (??, idk kenjaku 2)
 
     # Required on system
-    win-virtio # to support copy/pasting to and from VMs (guest machine requires virtio drivers)
+    virtio-win # to support copy/pasting to and from VMs (guest machine requires virtio drivers)
 
   ];
 }
