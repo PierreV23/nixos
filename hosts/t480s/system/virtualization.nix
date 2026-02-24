@@ -16,9 +16,6 @@
       qemu = {
         package = pkgs.qemu_kvm;
         runAsRoot = true;
-        ovmf.enable = true;
-        # ovmf.packages = [ pkgs.OVMF.fd ];
-        ovmf.packages = [ pkgs.OVMFFull.fd ]; # i still have no clue why this is needed 👍
         swtpm.enable = true;
         vhostUserPackages = [ pkgs.virtiofsd ];
       };
