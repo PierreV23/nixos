@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs05.url = "github:NixOS/nixpkgs/nixos-25.05";
     #nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
@@ -11,7 +10,6 @@
     {
       self,
       nixpkgs,
-      nixpkgs05,
       #nixpkgs-unstable,
       disko,
       ...
@@ -43,7 +41,7 @@
         };
 
         # TODO: rename to t480s
-        t480s = nixpkgs05.lib.nixosSystem {
+        t480s = nixpkgs.lib.nixosSystem {
           inherit system;
           #specialArgs = { inherit pkgs-unstable; };
           modules = [
