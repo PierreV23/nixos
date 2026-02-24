@@ -1,2 +1,3 @@
 flake.lock linguist-generated=true
 secrets/** filter=git-crypt diff=git-crypt
+vars/secrets.nix filter=git-crypt diff=git-crypt
