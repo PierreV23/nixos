@@ -1,7 +1,7 @@
 { secrets, ... }:
 {
   networking.wireguard.interfaces.wg0 = {
-    ips = [ "10.0.0.2/32" ];
+    ips = [ secrets.wg.mediaserver.subnet_ip ];
 
     privateKey = secrets.wg.mediaserver.private_key;
 
