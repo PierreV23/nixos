@@ -43,7 +43,10 @@
         # TODO: rename to t480s
         t480s = nixpkgs.lib.nixosSystem {
           inherit system;
-          #specialArgs = { inherit pkgs-unstable; };
+          specialArgs = {
+            # inherit pkgs-unstable;
+            repoRoot = self;
+          };
           modules = [
             ./hosts/t480s/configuration.nix
           ];

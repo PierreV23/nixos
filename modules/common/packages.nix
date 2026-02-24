@@ -21,6 +21,9 @@ with pkgs;
 
     # python package manager
     uv
+
+    # mktmp, among other things
+    coreutils
   ];
 
   nix = [

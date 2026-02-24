@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ repoRoot, pkgs, ... }:
+let
+  packages = import "${repoRoot}/modules/common/packages.nix" { inherit pkgs; };
+in
 {
   # shells
   # programs.bash.enable = true; # actually not needed (doesnt even build), always available on nixos system by default
@@ -6,21 +9,12 @@
 
   # to search packages: `nix search <>`
   environment.systemPackages = with pkgs; [
-    git
-
     wireguard-tools
-
-    # home manager cli
-    home-manager
-
-    # fetching (bark)
-    curl
-    wget
 
     networkmanagerapplet # network manager app
 
     quickemu # easy way to manage vms but iirc its kinda trash so i'll delete it (TODO)
-  ];
+  ] ++ packages.common ++ packages.nix;
 
   # dynamic libraries
   programs.nix-ld = {
