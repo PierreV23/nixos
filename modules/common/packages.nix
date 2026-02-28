@@ -27,6 +27,8 @@ with pkgs;
 
     # ts
     moreutils
+
+    htop
   ];
 
   nix = [
