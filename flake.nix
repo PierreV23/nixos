@@ -39,7 +39,6 @@
           ];
         };
 
-        # TODO: rename to t480s
         t480s = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
