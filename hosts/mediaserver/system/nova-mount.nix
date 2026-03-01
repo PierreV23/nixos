@@ -47,19 +47,21 @@ in
           --cache-dir=/var/cache/rclone \
           --allow-other \
           --vfs-cache-mode=full \
-          --vfs-cache-max-size=120G \
+          --vfs-cache-max-size=100G \
           --vfs-cache-max-age=720h \
           --vfs-read-chunk-size=32M \
           --vfs-read-chunk-size-limit=512M \
-          --vfs-read-ahead=4G \
+          --vfs-read-ahead=256M \
           --buffer-size=256M \
           --dir-cache-time=1h \
           --rc \
           --rc-addr=localhost:5572
       '';
-      ExecStop = "${pkgs.fuse}/bin/fusermount -u ${mountPoint}";
+      ExecStop = "${pkgs.util-linux}/bin/umount -l ${mountPoint}";
       Restart      = "on-failure";
       RestartSec   = "10s";
+      KillMode = "process";
+      TimeoutStopSec = "60s";
     };
   };
 }
