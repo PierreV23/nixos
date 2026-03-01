@@ -17,6 +17,7 @@
 
   environment.systemPackages = with pkgs; [
     git
+    git-crypt
   ];
 
   networking.hostName = "r7game-wsl";
