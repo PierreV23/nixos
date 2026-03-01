@@ -50,6 +50,18 @@
           ];
         };
 
+        nova = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
+          };
+          modules = [
+            disko.nixosModules.disko
+            ./hosts/nova/disk-config.nix
+            ./hosts/nova/configuration.nix
+          ];
+        };
+
       };
     };
 }
