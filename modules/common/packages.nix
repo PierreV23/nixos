@@ -29,6 +29,11 @@ with pkgs;
     moreutils
 
     htop
+    s-tui
+    iotop
+    iftop
+
+    screen
   ];
 
   nix = [
