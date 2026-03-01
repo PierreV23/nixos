@@ -6,5 +6,6 @@
     ./users.nix
     ./vpn.nix
     ./virtualization.nix
+    ./nova-mount.nix
   ];
 }
