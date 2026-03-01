@@ -67,6 +67,9 @@
 
         r7game-wsl = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = {
+            secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
+          };
           modules = [
             nixos-wsl.nixosModules.default
             ./hosts/r7game-wsl/configuration.nix

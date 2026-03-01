@@ -1,2 +1,3 @@
-flake.lock linguist-generated=true
+**/flake.lock linguist-generated=true
 vars/secrets.nix filter=git-crypt diff=git-crypt
+**/assh.nix filter=git-crypt diff=git-crypt

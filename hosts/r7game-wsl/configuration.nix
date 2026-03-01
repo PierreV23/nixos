@@ -8,7 +8,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [];
+  imports = [
+    ./assh.nix
+  ];
 
   wsl.enable = true;
   wsl.defaultUser = "nixos";
