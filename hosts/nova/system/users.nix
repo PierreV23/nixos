@@ -24,8 +24,10 @@
   };
 
   systemd.tmpfiles.rules = [
-    "d /mnt/data/media  0755 root root -"
-    "d /mnt/data/pierre 0755 root root -"
+    "d /mnt/data/media      0755 root  root  -"
+    "d /mnt/data/media/data 0755 media media -"
+    "d /mnt/data/pierre      0755 root  root  -"
+    "d /mnt/data/pierre/data 0755 pierre users -"
   ];
 
   users.users.media = {
