@@ -33,7 +33,11 @@ with pkgs;
     iotop
     iftop
 
+    # terminal multiplexer
     screen
+
+    # storage
+    ncdu
   ];
 
   nix = [
