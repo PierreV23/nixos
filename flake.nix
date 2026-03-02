@@ -1,28 +1,41 @@
 {
   inputs = {
+    # core
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    #nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # special system stuff
+    disko = { url = "github:nix-community/disko"; inputs.nixpkgs.follows = "nixpkgs"; };
+    nixos-wsl = { url = "github:nix-community/NixOS-WSL/main"; inputs.nixpkgs.follows = "nixpkgs"; };
+    home-manager = { url = "github:nix-community/home-manager/release-25.11"; inputs.nixpkgs.follows = "nixpkgs"; };
+
+    # extra
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    firefox-addons = { url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      #nixpkgs-unstable,
+      nixpkgs-unstable,
+
       disko,
       nixos-wsl,
+      home-manager,
+
+      nix-flatpak,
+      nix-vscode-extensions,
+      firefox-addons,
       ...
     }:
     let
       system = "x86_64-linux";
-      #pkgs-unstable = import nixpkgs-unstable {
-      #  inherit system;
-      #  config.allowUnfree = true;
-      #};
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
@@ -45,10 +58,25 @@
         t480s = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
-            # inherit pkgs-unstable;
             repoRoot = self;
           };
           modules = [
+            {
+              nixpkgs.overlays = [
+                nix-vscode-extensions.overlays.default
+                firefox-addons.overlays.default
+              ];
+            }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.pierre = import ./modules/home/pierre/home.nix;
+              home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
+              home-manager.sharedModules = [
+                nix-flatpak.homeManagerModules.nix-flatpak
+              ];
+            }
             ./hosts/t480s/configuration.nix
           ];
         };
