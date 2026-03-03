@@ -20,7 +20,11 @@
 
   users.users.root = {
     hashedPassword = secrets.nova.root_password;
-    openssh.authorizedKeys.keys = [ secrets.ssh.r7game.public_key ];
+    openssh.authorizedKeys.keys = [
+      secrets.ssh.r7game.public_key
+      secrets.ssh.r7game-wsl.nixos.public_key
+      secrest.ssh.t480s.public_key
+    ];
   };
 
   systemd.tmpfiles.rules = [
@@ -45,6 +49,8 @@
     shell = "${pkgs.shadow}/bin/nologin";
     openssh.authorizedKeys.keys = [
       secrets.ssh.r7game.public_key
+      secrets.ssh.r7game-wsl.nixos.public_key
+      secrest.ssh.t480s.public_key
     ];
   };
 }

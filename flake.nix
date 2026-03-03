@@ -72,7 +72,10 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.pierre = import ./modules/home/pierre/home.nix;
-              home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
+              home-manager.extraSpecialArgs = {
+                inherit pkgs-unstable;
+                secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
+              };
               home-manager.sharedModules = [
                 nix-flatpak.homeManagerModules.nix-flatpak
               ];

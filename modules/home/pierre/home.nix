@@ -15,5 +15,6 @@
     ./programs
     ./gnome.nix
     ./shell
+    ./assh.nix
   ];
 }
