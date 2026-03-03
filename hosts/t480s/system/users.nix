@@ -15,14 +15,14 @@
     packages = [ ]; # pkgs.<>
   };
 
-  users.users.testkde = {
-    isNormalUser = true;
-    description = "KDE Test User";
-    shell = pkgs.bash;
-    extraGroups = [
-      "networkmanager"
-      # "wheel" # sudo access
-    ];
-    packages = [ ];
-  };
+  # users.users.testkde = {
+  #   isNormalUser = true;
+  #   description = "KDE Test User";
+  #   shell = pkgs.bash;
+  #   extraGroups = [
+  #     "networkmanager"
+  #     # "wheel" # sudo access
+  #   ];
+  #   packages = [ ];
+  # };
 }

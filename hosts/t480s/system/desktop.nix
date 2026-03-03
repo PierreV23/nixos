@@ -10,7 +10,7 @@
   services.desktopManager.gnome.enable = true;
 
   # Enable KDE Plasma
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
   # Use gnome ssh ask password or something lik that
   programs.ssh.askPassword = lib.mkForce "${lib.getBin pkgs.seahorse}/libexec/seahorse/ssh-askpass";
