@@ -23,7 +23,7 @@
     openssh.authorizedKeys.keys = [
       secrets.ssh.r7game.public_key
       secrets.ssh.r7game-wsl.nixos.public_key
-      secrest.ssh.t480s.public_key
+      secrets.ssh.t480s.public_key
     ];
   };
 
@@ -50,7 +50,7 @@
     openssh.authorizedKeys.keys = [
       secrets.ssh.r7game.public_key
       secrets.ssh.r7game-wsl.nixos.public_key
-      secrest.ssh.t480s.public_key
+      secrets.ssh.t480s.public_key
     ];
   };
 }
