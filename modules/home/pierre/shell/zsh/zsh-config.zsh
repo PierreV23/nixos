@@ -68,9 +68,13 @@ kitty-help() {
   echo "\n${gray}Type 'kitty-help' to see this again${reset}\n"
 }
 
-# Use kitty ssh kitten and auto-launch remote zsh with portable config
+# special ssh commands
 if [[ "$TERM" == "xterm-kitty" ]]; then
-    ssh() {
+    ks() {
+      command kitty +kitten ssh "$@"
+    }
+
+    ksh() {
         command kitty +kitten ssh "$@" -t 'ZDOTDIR=$HOME/.pierrev23-stuff exec $HOME/.pierrev23-stuff/.zsh-bin/zsh'
     }
 fi
