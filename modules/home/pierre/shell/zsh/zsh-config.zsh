@@ -77,10 +77,13 @@ if [[ "$TERM" == "xterm-kitty" ]]; then
     ksh() {
         command kitty +kitten ssh "$@" -t 'ZDOTDIR=$HOME/.pierrev23-stuff exec $HOME/.pierrev23-stuff/.zsh-bin/zsh'
     }
+
+    compdef ks=ssh
+    compdef ksh=ssh
 fi
 
 # Setup portable zsh environment on a remote host
-setup-remote-zsh() {
+ksh-prepare() {
     local host="$1"
     local cache="$HOME/.cache/zsh-static"
     local remote_dir=".pierrev23-stuff"
@@ -105,6 +108,11 @@ setup-remote-zsh() {
     command scp "$HOME/.zshrc.portable" "$host:$remote_dir/.zshrc"
 
     echo "Done. Connect with: ssh $host"
+}
+compdef ksh-prepare=ssh
+
+reload() {
+  source ~/.zshrc
 }
 
 # Display shortcuts on first kitty launch
