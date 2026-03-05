@@ -111,6 +111,7 @@ ksh-prepare() {
 }
 compdef ksh-prepare=ssh
 
+# Reload zsh config without relaunching terminal
 reload() {
   source ~/.zshrc
 }
@@ -124,7 +125,17 @@ fi
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
+
+# Case-insensitive completion (e.g. "foo" matches "Foo")
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+# Show interactive menu when multiple completions match (arrow keys to navigate)
+zstyle ':completion:*' menu select
+
+# Pull SSH hosts from ~/.ssh/config (zsh's default _ssh completion often
+# skips config hosts if known_hosts or /etc/hosts matches first)
+zstyle -e ':completion:*:hosts' hosts 'reply=(
+  ${${${(@M)${(f)"$(<~/.ssh/config)"}:#Host *}#Host }:#*[*?]*}
+)'
 
 # Fix keybindings
 bindkey "^[[3~" delete-char              # Delete
