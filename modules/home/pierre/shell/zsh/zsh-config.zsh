@@ -111,9 +111,12 @@ ksh-prepare() {
 }
 compdef ksh-prepare=ssh
 
-# Reload zsh config without relaunching terminal
+# Reload zsh by replacing current shell with a fresh login shell.
+# On NixOS, 'source ~/.zshrc' breaks PATH because /etc/zshenv and
+# /etc/zprofile (which set up Nix paths) don't get re-sourced.
+# 'exec zsh' reruns the full init chain in the correct order.
 reload() {
-  source ~/.zshrc
+  exec zsh
 }
 
 # Display shortcuts on first kitty launch
