@@ -112,6 +112,7 @@
           inherit system;
           specialArgs = {
             secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
+            repoRoot = self;
           };
           modules = [
             nixos-wsl.nixosModules.default
