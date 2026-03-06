@@ -15,6 +15,7 @@
 {
   imports = [
     ./assh.nix
+    ./programs.nix
   ];
 
   wsl.enable = true;
