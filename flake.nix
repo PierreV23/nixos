@@ -107,6 +107,17 @@
           ];
         };
 
+        eth = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
+          };
+          modules = [
+            nixos-wsl.nixosModules.default
+            ./hosts/eth/configuration.nix
+          ];
+        };
+
       };
     };
 }
