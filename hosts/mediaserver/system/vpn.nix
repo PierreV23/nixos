@@ -1,14 +1,14 @@
 { secrets, ... }:
 {
   networking.wireguard.interfaces.wg0 = {
-    ips = [ secrets.wg.mediaserver.subnet_ip ];
+    ips = [ secrets.mediaserver.wg.subnet_ip ];
 
-    privateKey = secrets.wg.mediaserver.private_key;
+    privateKey = secrets.mediaserver.wg.private_key;
 
     peers = [
       {
-        publicKey = secrets.wg.eth.public_key;
-        endpoint = secrets.wg.eth.ip_port;
+        publicKey = secrets.eth.wg.public_key;
+        endpoint = secrets.eth.wg.ip_port;
         allowedIPs = [ "10.0.0.0/24" ];
         persistentKeepalive = 25;
       }

@@ -28,4 +28,6 @@
   };
 
   networking.hostName = "eth";
+
+  networking.firewall.allowedUDPPorts = [ secrets.eth.wg.port ];
 }

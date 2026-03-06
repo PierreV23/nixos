@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./users.nix
       ./networking.nix
+      ./wg.nix
     ];
 
   # Use the GRUB 2 boot loader.
