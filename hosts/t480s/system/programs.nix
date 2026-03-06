@@ -8,13 +8,17 @@ in
   programs.zsh.enable = true;
 
   # to search packages: `nix search <>`
-  environment.systemPackages = with pkgs; [
-    wireguard-tools
+  environment.systemPackages =
+    with pkgs;
+    [
+      wireguard-tools
 
-    networkmanagerapplet # network manager app
+      networkmanagerapplet # network manager app
 
-    quickemu # easy way to manage vms but iirc its kinda trash so i'll delete it (TODO)
-  ] ++ packages.common ++ packages.nix;
+      quickemu # easy way to manage vms but iirc its kinda trash so i'll delete it (TODO)
+    ]
+    ++ packages.common
+    ++ packages.nix;
 
   # dynamic libraries
   programs.nix-ld = {

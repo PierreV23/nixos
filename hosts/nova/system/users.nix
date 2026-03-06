@@ -41,7 +41,7 @@
     shell = "${pkgs.shadow}/bin/nologin";
     openssh.authorizedKeys.keys = [ secrets.ssh.mediaserver.root.public_key ];
   };
-  users.groups.media = {};
+  users.groups.media = { };
 
   users.users.pierre = {
     isNormalUser = true;

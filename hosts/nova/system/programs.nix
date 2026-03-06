@@ -1,4 +1,7 @@
-{pkgs,...}:
+{ pkgs, ... }:
 {
-    environment.systemPackages = [ pkgs.curl pkgs.git ];
+  environment.systemPackages = [
+    pkgs.curl
+    pkgs.git
+  ];
 }

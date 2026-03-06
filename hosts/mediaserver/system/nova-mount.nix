@@ -1,4 +1,9 @@
-{ pkgs, secrets, config, ... }:
+{
+  pkgs,
+  secrets,
+  config,
+  ...
+}:
 let
   # Write the config to the Nix store (read-only), then copy to a writable path at runtime
   rcloneConfigSource = pkgs.writeText "nova.conf" ''
@@ -19,7 +24,7 @@ let
   '';
 
   rcloneConfig = "/run/rclone/nova.conf";
-  mountPoint  = "/mnt/data";
+  mountPoint = "/mnt/data";
 in
 {
   environment.systemPackages = [ pkgs.rclone ];
@@ -34,12 +39,12 @@ in
 
   systemd.services.rclone-nova = {
     description = "rclone mount: nova-media → ${mountPoint}";
-    after    = [ "network-online.target" ];
-    wants    = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {
-      Type      = "notify";
+      Type = "notify";
       ExecStartPre = "${pkgs.coreutils}/bin/install -m 600 ${rcloneConfigSource} ${rcloneConfig}";
       ExecStart = ''
         ${pkgs.rclone}/bin/rclone mount nova-media: ${mountPoint} \
@@ -58,8 +63,8 @@ in
           --rc-addr=localhost:5572
       '';
       ExecStop = "${pkgs.util-linux}/bin/umount -l ${mountPoint}";
-      Restart      = "on-failure";
-      RestartSec   = "10s";
+      Restart = "on-failure";
+      RestartSec = "10s";
       KillMode = "process";
       TimeoutStopSec = "60s";
     };

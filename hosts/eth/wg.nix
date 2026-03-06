@@ -1,4 +1,4 @@
-{secrets, ...}:
+{ secrets, ... }:
 {
   networking.wireguard.interfaces.wg0 = {
     ips = [ "10.0.0.1/24" ];

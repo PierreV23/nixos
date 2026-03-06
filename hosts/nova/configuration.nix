@@ -1,4 +1,10 @@
-{ modulesPath, pkgs, lib, secrets, ... }:
+{
+  modulesPath,
+  pkgs,
+  lib,
+  secrets,
+  ...
+}:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -6,8 +12,11 @@
   ];
 
   hardware.enableRedistributableFirmware = true;
-  
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   security.sudo.wheelNeedsPassword = false;
 
