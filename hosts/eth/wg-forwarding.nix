@@ -20,7 +20,7 @@ in
     internalIPs = [ "10.0.0.0/24" ];
     internalInterfaces = [ "wg0" ];
     forwardPorts = [
-      (fwd jellfyin.public_port jellfyin.wg_ip jellfyin.wg_port "tcp")
+      (fwd jellyfin.public_port jellyfin.wg_ip jellyfin.wg_port "tcp")
     ];
   };
 
