@@ -12,12 +12,18 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./users.nix
     ./networking.nix
     ./wg.nix
+    ./wg-forwarding.nix
   ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
