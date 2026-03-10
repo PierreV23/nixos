@@ -111,6 +111,11 @@ ksh-prepare() {
 }
 compdef ksh-prepare=ssh
 
+clear-sockets() {
+  rm /run/user/1000/kssh-*
+  rm ~/.ssh/sockets/*
+}
+
 # Reload zsh by replacing current shell with a fresh login shell.
 # On NixOS, 'source ~/.zshrc' breaks PATH because /etc/zshenv and
 # /etc/zprofile (which set up Nix paths) don't get re-sourced.
