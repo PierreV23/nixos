@@ -44,5 +44,7 @@
     spice-gtk
     spice-protocol
     vagrant
+
+    microsoft-edge
   ];
 }
