@@ -22,6 +22,11 @@
         publicKey = secrets.t480s.wg.public_key;
         allowedIPs = [ secrets.t480s.wg.subnet_ip ];
       }
+      {
+        # r5homeserver
+        publicKey = secrets.r5homeserver.wg.public_key;
+        allowedIPs = [ secrets.r5homeserver.wg.subnet_ip ];
+      }
     ];
   };
 }
