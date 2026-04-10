@@ -60,7 +60,8 @@ in
           --buffer-size=256M \
           --dir-cache-time=1h \
           --rc \
-          --rc-addr=localhost:5572
+          --rc-addr=localhost:5572 \
+          --rc-no-auth
       '';
       ExecStop = "${pkgs.util-linux}/bin/umount -l ${mountPoint}";
       Restart = "on-failure";
