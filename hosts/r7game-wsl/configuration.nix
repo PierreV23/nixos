@@ -18,6 +18,9 @@
     ./programs.nix
   ];
 
+  virtualisation.docker.enable = true;
+  users.users.nixos.extraGroups = [ "docker" ];
+
   wsl.enable = true;
   wsl.defaultUser = "nixos";
 

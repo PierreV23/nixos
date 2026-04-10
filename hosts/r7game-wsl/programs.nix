@@ -4,4 +4,6 @@ let
 in
 {
   environment.systemPackages = packages.common ++ packages.nix;
+
+  programs.direnv.enable = true;
 }
