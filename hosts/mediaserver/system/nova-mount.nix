@@ -35,6 +35,7 @@ in
     "d /run/rclone        0700 root root -"
     "d ${mountPoint}      0755 root root -"
     "d /var/cache/rclone  0755 root root -"
+    "f /var/log/rclone-nova.log 0644 root root -"
   ];
 
   systemd.services.rclone-nova = {
@@ -61,7 +62,9 @@ in
           --dir-cache-time=1h \
           --rc \
           --rc-addr=localhost:5572 \
-          --rc-no-auth
+          --rc-no-auth \
+          --log-level=INFO \
+          --log-file=/var/log/rclone-nova.log
       '';
       ExecStop = "${pkgs.util-linux}/bin/umount -l ${mountPoint}";
       Restart = "on-failure";
