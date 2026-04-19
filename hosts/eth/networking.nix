@@ -1,8 +1,5 @@
 { secrets, ... }:
 {
-  # ssh
-  services.openssh.enable = true;
-
   # static network config
   networking.useDHCP = false;
   networking.interfaces.ens3 = {

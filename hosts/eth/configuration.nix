@@ -19,6 +19,7 @@
     ./wg-forwarding.nix
     ./rp.nix
     ./rvp.nix
+    ./ssh.nix
   ];
 
   nix.settings.experimental-features = [
