@@ -6,5 +6,6 @@
     ./users.nix
     ./disk.nix
     ./programs.nix
+    ./ssh.nix
   ];
 }
