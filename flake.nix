@@ -32,11 +32,9 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
-
       disko,
       nixos-wsl,
       home-manager,
-
       nix-flatpak,
       nix-vscode-extensions,
       firefox-addons,
@@ -64,6 +62,7 @@
             disko.nixosModules.disko
             ./hosts/mediaserver/disk-config.nix
             ./hosts/mediaserver/configuration.nix
+            ./modules/common/gc.nix
           ];
         };
 
@@ -93,6 +92,7 @@
               ];
             }
             ./hosts/t480s/configuration.nix
+            ./modules/common/gc.nix
           ];
         };
 
@@ -105,6 +105,7 @@
             disko.nixosModules.disko
             ./hosts/nova/disk-config.nix
             ./hosts/nova/configuration.nix
+            ./modules/common/gc.nix
           ];
         };
 
@@ -117,6 +118,7 @@
           modules = [
             nixos-wsl.nixosModules.default
             ./hosts/r7game-wsl/configuration.nix
+            ./modules/common/gc.nix
           ];
         };
 
@@ -128,6 +130,7 @@
           modules = [
             nixos-wsl.nixosModules.default
             ./hosts/eth/configuration.nix
+            ./modules/common/gc.nix
           ];
         };
 
