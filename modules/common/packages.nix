@@ -38,6 +38,10 @@ with pkgs;
 
     # storage
     ncdu
+
+    # compression
+    zip
+    unzip
   ];
 
   nix = [
