@@ -4,6 +4,8 @@
     enable = true;
     settings.PasswordAuthentication = false;
     settings.PermitRootLogin = "prohibit-password";
+    settings.ClientAliveInterval = 10;
+    settings.ClientAliveCountMax = 3;
     extraConfig = ''
       Match User media
         ChrootDirectory /mnt/data/media

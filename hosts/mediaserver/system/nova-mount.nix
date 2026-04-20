@@ -13,6 +13,8 @@ let
     user = media
     key_file = /root/.ssh/id_ed25519
     chunk_size = 255k
+    idle_timeout = 60s
+    concurrency = 10
 
     [nova-media]
     type = crypt
@@ -43,9 +45,12 @@ in
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
+    startLimitIntervalSec = 300;
+    startLimitBurst = 5;
 
     serviceConfig = {
       Type = "notify";
+      TimeoutStartSec = "180s";
       ExecStartPre = "${pkgs.coreutils}/bin/install -m 600 ${rcloneConfigSource} ${rcloneConfig}";
       ExecStart = ''
         ${pkgs.rclone}/bin/rclone mount nova-media: ${mountPoint} \
@@ -65,12 +70,17 @@ in
           --rc \
           --rc-addr=localhost:5572 \
           --rc-no-auth \
+          --timeout=2m \
+          --contimeout=15s \
+          --retries=3 \
+          --low-level-retries=5 \
+          --retries-sleep=1s \
           --log-level=INFO \
           --log-file=/var/log/rclone-nova.log
       '';
       ExecStop = "${pkgs.util-linux}/bin/umount -l ${mountPoint}";
-      Restart = "on-failure";
-      RestartSec = "10s";
+      Restart = "always";
+      RestartSec = "15s";
       KillMode = "process";
       TimeoutStopSec = "60s";
     };
