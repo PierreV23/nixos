@@ -54,12 +54,14 @@ in
           --allow-other \
           --vfs-cache-mode=full \
           --vfs-cache-max-size=100G \
-          --vfs-cache-max-age=720h \
+          --vfs-cache-min-free-space=10G \
+          --vfs-cache-max-age=48h \
           --vfs-read-chunk-size=32M \
           --vfs-read-chunk-size-limit=512M \
           --vfs-read-ahead=256M \
+          --vfs-cache-poll-interval=10s \
           --buffer-size=256M \
-          --dir-cache-time=1h \
+          --dir-cache-time=15s \
           --rc \
           --rc-addr=localhost:5572 \
           --rc-no-auth \
