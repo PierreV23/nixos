@@ -5,7 +5,6 @@
   ...
 }:
 let
-  # Write the config to the Nix store (read-only), then copy to a writable path at runtime
   rcloneConfigSource = pkgs.writeText "nova.conf" ''
     [nova-sftp]
     type = sftp
@@ -65,6 +64,7 @@ in
           --vfs-read-chunk-size-limit=512M \
           --vfs-read-ahead=256M \
           --vfs-cache-poll-interval=10s \
+          --transfers=1 \
           --buffer-size=256M \
           --dir-cache-time=15s \
           --rc \
@@ -75,7 +75,7 @@ in
           --retries=3 \
           --low-level-retries=5 \
           --retries-sleep=1s \
-          --log-level=INFO \
+          --log-level=DEBUG \
           --log-file=/var/log/rclone-nova.log
       '';
       ExecStop = "${pkgs.util-linux}/bin/umount -l ${mountPoint}";
