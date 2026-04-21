@@ -12,7 +12,7 @@ let
     user = media
     key_file = /root/.ssh/id_ed25519
     chunk_size = 255k
-    idle_timeout = 60s
+    idle_timeout = 0
     concurrency = 10
 
     [nova-media]
@@ -63,21 +63,22 @@ in
           --vfs-read-chunk-size=32M \
           --vfs-read-chunk-size-limit=512M \
           --vfs-read-ahead=256M \
-          --vfs-cache-poll-interval=10s \
+          --vfs-cache-poll-interval=60s \
           --transfers=1 \
           --buffer-size=256M \
-          --dir-cache-time=15s \
+          --dir-cache-time=72h \
           --rc \
           --rc-addr=localhost:5572 \
           --rc-no-auth \
           --timeout=2m \
-          --contimeout=15s \
+          --contimeout=30s \
           --retries=3 \
           --low-level-retries=5 \
           --retries-sleep=1s \
           --log-level=DEBUG \
           --log-file=/var/log/rclone-nova.log
       '';
+      ExecStartPost = "${pkgs.bash}/bin/bash -c 'sleep 3 && ${pkgs.curl}/bin/curl -sf -X POST \"http://localhost:5572/vfs/refresh?recursive=true&_async=true\" || true'";
       ExecStop = "${pkgs.util-linux}/bin/umount -l ${mountPoint}";
       Restart = "always";
       RestartSec = "15s";
