@@ -39,6 +39,12 @@ in
     "f /var/log/rclone-nova.log 0644 root root -"
   ];
 
+  systemd.services.docker = {
+    after = [ "rclone-nova.service" ];
+    requires = [ "rclone-nova.service" ];
+    unitConfig.RequiresMountsFor = "/mnt/data";
+  };
+
   systemd.services.rclone-nova = {
     description = "rclone mount: nova-media → ${mountPoint}";
     after = [ "network-online.target" ];
