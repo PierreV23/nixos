@@ -3,6 +3,7 @@
     # core
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-2605.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     # special system stuff
     disko = {
@@ -32,6 +33,7 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
+      nixpkgs-2605,
       disko,
       nixos-wsl,
       home-manager,
@@ -131,6 +133,14 @@
             nixos-wsl.nixosModules.default
             ./hosts/eth/configuration.nix
             ./modules/common/gc.nix
+          ];
+        };
+        
+        e14g7 = nixpkgs-2605.lib.nixosSystem {
+          inherit system;
+          modules = [
+           ./hosts/e14g7/configuration.nix
+           ./modules/common/gc.nix
           ];
         };
 
