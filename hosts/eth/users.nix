@@ -5,6 +5,7 @@
     openssh.authorizedKeys.keys = [
       secrets.ssh.r7game-wsl.nixos.public_key
       secrets.ssh.t480s.public_key
+      secrets.ssh.e14g7.public_key
     ];
   };
 }
