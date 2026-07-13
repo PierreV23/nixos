@@ -1,8 +1,9 @@
 { config, inputs, lib, ... }:
 let
-  flakeCfg = config.flake;
-  secrets  = import ../../vars/secrets.nix { inherit lib; };
-  assh     = import ../_lib/assh.nix { inherit lib; };
+  flakeCfg  = config.flake;
+  secrets   = import ../../vars/secrets.nix { inherit lib; };
+  assh      = import ../_lib/assh.nix { inherit lib; };
+  asshHosts = import ../_lib/assh-hosts.nix { inherit secrets; };
 in
 {
   flake.nixosConfigurations.e14g7 = inputs.nixpkgs-2605.lib.nixosSystem {
@@ -45,39 +46,14 @@ in
               id_e14g7_pierre = osConfig.sops.secrets.id_e14g7_pierre.path;
               id_t480s_pierre = assh.secret secrets.ssh.t480s.private_key;
             };
-            yaml = { pkgs, keys }: ''
-              defaults:
+            yaml = { pkgs, keys }: assh.mkYaml {
+              defaults = ''
                 ASSHBinaryPath: ${pkgs.assh}/bin/assh
                 ControlPath: ~/.ssh/sockets/%C
                 IdentityFile: ${keys.id_e14g7_pierre}
-
-              hosts:
-                eth:
-                  Hostname: ${secrets.eth.ip}
-                  User: root
-                wg-mediaserver:
-                  Hostname: ${secrets.mediaserver.wg.local_ip}
-                  User: root
-                  Gateways: [ direct, eth ]
-                nova:
-                  Hostname: ${secrets.nova.ip}
-                  User: root
-                hostbrr:
-                  Hostname: ftpus1.hostypanel.com
-                  User: s1brbrst
-                  Port: 53211
-                mediaserver:
-                  Hostname: ${secrets.mediaserver.ip_local}
-                  User: root
-                  Gateways: [ direct, wg-mediaserver ]
-                r5homeserver:
-                  Hostname: 192.168.1.15
-                  User: pierre
-                  Gateways: [ direct, wg-mediaserver ]
-                github.com:
-                  Hostname: github.com
-                  User: git
-            '';
+              '';
+              hosts = [ asshHosts.personal ];
+            };
           })
         ];
       }
