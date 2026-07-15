@@ -31,15 +31,12 @@
           show-battery-percentage = true;
         };
 
-        "org/gnome/shell/extensions/user-theme" = {
-          name = "Adwaita-dark";
-        };
-
         "org/gnome/shell/keybindings" = {
           toggle-message-tray = [ ];
         };
 
         "org/gnome/shell" = {
+          always-show-log-out = true;
           disable-user-extensions = false;
           enabled-extensions = [
             "dash-to-dock@micxgx.gmail.com"
@@ -50,6 +47,7 @@
             "drive-menu@gnome-shell-extensions.gcampax.github.com"
             "gsconnect@andyholmes.github.io"
             "appindicatorsupport@rgcjonas.gmail.com"
+            "tilingshell@ferrarodomenico.com"
           ];
           favorite-apps = [
             "firefox.desktop"
@@ -59,6 +57,7 @@
           ];
         };
 
+        # lower dock
         "org/gnome/shell/extensions/dash-to-dock" = {
           dock-position = "BOTTOM";
           dock-fixed = false;
@@ -77,6 +76,7 @@
           max-alpha = 0.2;
         };
 
+        # vitals
         "org/gnome/shell/extensions/vitals" = {
           hot-sensors = [
             "_processor_usage_"
@@ -86,27 +86,40 @@
           position-in-panel = 2;
         };
 
-        "org/gnome/shell/extensions/blur-my-shell/panel" = {
-          blur = true;
-          override-background = true;
-          style-panel = 1;
-        };
+        # "org/gnome/shell/extensions/blur-my-shell/panel" = {
+        #   blur = true;
+        #   override-background = true;
+        #   style-panel = 1;
+        # };
 
-        "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
-          blur = true;
-          override-background = true;
-          style-dash-to-dock = 1;
-        };
+        # "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
+        #   blur = true;
+        #   override-background = true;
+        #   style-dash-to-dock = 1;
+        # };
 
-        "org/gnome/shell/extensions/blur-my-shell/overview" = {
-          blur = true;
-          style-components = 1;
-        };
+        # "org/gnome/shell/extensions/blur-my-shell/overview" = {
+        #   blur = true;
+        #   style-components = 1;
+        # };
 
+        # clipboard
         "org/gnome/shell/extensions/clipboard-indicator" = {
           toggle-menu = [ "<Super>v" ];
           history-size = 50;
           display-mode = 0;
+        };
+
+        # tilingshell shortcuts
+        "org/gnome/shell/extensions/tilingshell" = {
+          span-window-up = [ "<Super><Control>Up" ];
+          span-window-down = [ "<Super><Control>Down" ];
+          span-window-left = [ "<Super><Control>Left" ];
+          span-window-right = [ "<Super><Control>Right" ];
+          span-window-all-tiles = [ "<Super><Control>Return" ];
+          untile-window = [ "<Super>BackSpace" ];
+          cycle-layouts = [ "<Super><Control>period" ];
+          cycle-layouts-backward = [ "<Super><Control>comma" ];
         };
       };
 
@@ -122,6 +135,7 @@
         gnomeExtensions.weather-or-not
         gnomeExtensions.gsconnect
         gnomeExtensions.appindicator
+        gnomeExtensions.tiling-shell
       ];
     };
 }
