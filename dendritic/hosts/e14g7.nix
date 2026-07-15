@@ -36,6 +36,7 @@ in
           flakeCfg.modules.homeManager.firefox
           flakeCfg.modules.homeManager.vscode
           flakeCfg.modules.homeManager.prismlauncher
+          flakeCfg.modules.homeManager.gnome
 
           ({ pkgs, ... }: {
             home.packages = [ pkgs.age pkgs.sops ];
