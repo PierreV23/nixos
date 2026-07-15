@@ -6,7 +6,7 @@
       inputs.firefox-addons.overlays.default
       (final: prev: {
         unstable = import inputs.nixpkgs-unstable {
-          inherit (prev) system;
+          inherit (prev.stdenv.hostPlatform) system;
           config.allowUnfree = true;
         };
       })
