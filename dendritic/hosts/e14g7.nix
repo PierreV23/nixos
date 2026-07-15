@@ -37,6 +37,12 @@ in
           flakeCfg.modules.homeManager.vscode
           flakeCfg.modules.homeManager.prismlauncher
           flakeCfg.modules.homeManager.gnome
+          flakeCfg.modules.homeManager.packages # general apps
+          flakeCfg.modules.homeManager.vm
+          flakeCfg.modules.homeManager.flatpak # general apps via flatpak
+          flakeCfg.modules.homeManager.cl_packages # general cli
+          flakeCfg.modules.homeManager.nix_packages
+          flakeCfg.modules.homeManager.direnv
 
           ({ pkgs, ... }: {
             home.packages = [ pkgs.age pkgs.sops ];
