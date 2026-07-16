@@ -1,4 +1,9 @@
-{ config, pkgs, secrets, ... }:
+{
+  config,
+  pkgs,
+  secrets,
+  ...
+}:
 let
   fwd = srcPort: destHost: destPort: proto: {
     inherit proto;

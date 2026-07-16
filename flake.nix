@@ -20,10 +20,9 @@
     };
 
     home-manager-2605 = {
-       url = "github:nix-community/home-manager/release-26.05";
-       inputs.nixpkgs.follows = "nixpkgs-2605";
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
     };
-
 
     # extra
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
@@ -32,7 +31,7 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
@@ -66,9 +65,8 @@
         inherit system;
         config.allowUnfree = true;
       };
-      
-      dendritic = flake-parts.lib.mkFlake { inherit inputs; }
-        (import-tree ./dendritic);
+
+      dendritic = flake-parts.lib.mkFlake { inherit inputs; } (import-tree ./dendritic);
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
@@ -156,7 +154,7 @@
             ./modules/common/gc.nix
           ];
         };
-        
+
         inherit (dendritic.nixosConfigurations) e14g7;
 
       };

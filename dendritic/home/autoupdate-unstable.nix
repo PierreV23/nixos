@@ -7,7 +7,13 @@
 
       updater = pkgs.writeShellApplication {
         name = "nixpkgs-unstable-autoupdate";
-        runtimeInputs = with pkgs; [ git nix jq libnotify coreutils ];
+        runtimeInputs = with pkgs; [
+          git
+          nix
+          jq
+          libnotify
+          coreutils
+        ];
         text = ''
           set -euo pipefail
           cd ${flakeDir}

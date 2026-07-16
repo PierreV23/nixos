@@ -92,7 +92,10 @@
         "org/gnome/shell/extensions/tilingshell" = {
           # layouts
           layouts-json = ''[{"id":"thirds-split","tiles":[{"x":0,"y":0,"width":0.3334302325581395,"height":0.5,"groups":[1,3]},{"x":0.3334302325581395,"y":0,"width":0.33313953488372094,"height":1,"groups":[2,1]},{"x":0.6665697674418605,"y":0,"width":0.3334302325581392,"height":0.5,"groups":[4,2]},{"x":0,"y":0.5,"width":0.3334302325581395,"height":0.5,"groups":[3,1]},{"x":0.6665697674418605,"y":0.5,"width":0.3334302325581392,"height":0.5,"groups":[4,2]}]},{"id":"quarters","tiles":[{"x":0.5,"y":0,"width":0.25,"height":1,"groups":[3,1]},{"x":0,"y":0,"width":0.25,"height":0.5,"groups":[2,5]},{"x":0.25,"y":0,"width":0.25000000000000044,"height":1,"groups":[1,2]},{"x":0.75,"y":0,"width":0.25,"height":0.5,"groups":[4,3]},{"x":0.75,"y":0.5,"width":0.25,"height":0.5,"groups":[4,3]},{"x":0,"y":0.5,"width":0.25,"height":0.5,"groups":[5,2]}]}]'';
-          selected-layouts = [ [ "thirds-split" ] [ "thirds-split" ] ];
+          selected-layouts = [
+            [ "thirds-split" ]
+            [ "thirds-split" ]
+          ];
 
           # keybindings
           span-window-up = [ "<Super><Control>Up" ];

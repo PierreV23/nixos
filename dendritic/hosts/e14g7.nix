@@ -1,8 +1,13 @@
-{ config, inputs, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 let
-  flakeCfg  = config.flake;
-  secrets   = import ../../vars/secrets.nix { inherit lib; };
-  assh      = import ../_lib/assh.nix { inherit lib; };
+  flakeCfg = config.flake;
+  secrets = import ../../vars/secrets.nix { inherit lib; };
+  assh = import ../_lib/assh.nix { inherit lib; };
   asshHosts = import ../_lib/assh-hosts.nix { inherit secrets; };
 in
 {
@@ -24,7 +29,6 @@ in
       flakeCfg.modules.nixos.cl_packages
       flakeCfg.modules.nixos.nix_packages
       flakeCfg.modules.nixos.auto-cleanup
-
 
       inputs.home-manager-2605.nixosModules.home-manager
       {
@@ -59,23 +63,33 @@ in
           flakeCfg.modules.homeManager.zapzap
           flakeCfg.modules.homeManager.autoupdate-unstable
 
-          ({ pkgs, ... }: {
-            home.packages = [ pkgs.age pkgs.sops ];
-          })
+          (
+            { pkgs, ... }:
+            {
+              home.packages = [
+                pkgs.age
+                pkgs.sops
+              ];
+            }
+          )
 
           (assh.homeModule {
-            keys = { osConfig, ... }: {
-              id_e14g7_pierre = osConfig.sops.secrets.id_e14g7_pierre.path;
-              id_t480s_pierre = assh.secret secrets.ssh.t480s.private_key;
-            };
-            yaml = { pkgs, keys }: assh.mkYaml {
-              defaults = ''
-                ASSHBinaryPath: ${pkgs.assh}/bin/assh
-                ControlPath: ~/.ssh/sockets/%C
-                IdentityFile: ${keys.id_e14g7_pierre}
-              '';
-              hosts = [ asshHosts.personal ];
-            };
+            keys =
+              { osConfig, ... }:
+              {
+                id_e14g7_pierre = osConfig.sops.secrets.id_e14g7_pierre.path;
+                id_t480s_pierre = assh.secret secrets.ssh.t480s.private_key;
+              };
+            yaml =
+              { pkgs, keys }:
+              assh.mkYaml {
+                defaults = ''
+                  ASSHBinaryPath: ${pkgs.assh}/bin/assh
+                  ControlPath: ~/.ssh/sockets/%C
+                  IdentityFile: ${keys.id_e14g7_pierre}
+                '';
+                hosts = [ asshHosts.personal ];
+              };
           })
         ];
       }

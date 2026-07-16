@@ -1,8 +1,10 @@
 { ... }:
 {
-  flake.modules.nixos.sudo = { ... }: {
-    security.sudo.extraConfig = ''
-      Defaults pwfeedback
-    '';
-  };
+  flake.modules.nixos.sudo =
+    { ... }:
+    {
+      security.sudo.extraConfig = ''
+        Defaults pwfeedback
+      '';
+    };
 }

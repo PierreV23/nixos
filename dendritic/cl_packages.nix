@@ -1,74 +1,84 @@
 { ... }:
 let
-  cliPackages = pkgs: with pkgs; [
-    git
-    git-crypt
+  cliPackages =
+    pkgs: with pkgs; [
+      git
+      git-crypt
 
-    #@ shell
-    zsh
+      #@ shell
+      zsh
 
-    #@ fetching
-    wget
-    curl
+      #@ fetching
+      wget
+      curl
 
-    #@ folder tree
-    tree
+      #@ folder tree
+      tree
 
-    #@ json parser
-    jq
+      #@ json parser
+      jq
 
-    #@ mktemp and more
-    coreutils
+      #@ mktemp and more
+      coreutils
 
-    #@ ts and more
-    moreutils
+      #@ ts and more
+      moreutils
 
-    #@ system monitoring
-    htop
-    s-tui
-    iotop
-    iftop
+      #@ system monitoring
+      htop
+      s-tui
+      iotop
+      iftop
 
-    #@ terminal multiplexer
-    screen
+      #@ terminal multiplexer
+      screen
 
-    #@ storage
-    ncdu
+      #@ storage
+      ncdu
 
-    #@ compression
-    zip
-    unzip
+      #@ compression
+      zip
+      unzip
 
-    #@ python
-    python313
-    uv #@ package manager
+      #@ python
+      python313
+      uv # @ package manager
 
-    #@ misc cli
-    bc
-    datamash
-    openssl
-  ];
+      #@ misc cli
+      bc
+      datamash
+      openssl
+    ];
 
-  nixPackages = pkgs: with pkgs; [
-    # home-manager
-    nixfmt
-    nixfmt-tree
-  ];
+  nixPackages =
+    pkgs: with pkgs; [
+      # home-manager
+      nixfmt
+      nixfmt-tree
+    ];
 in
 {
-  flake.modules.nixos.cl_packages = { pkgs, ... }: {
-    environment.systemPackages = cliPackages pkgs;
-  };
+  flake.modules.nixos.cl_packages =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = cliPackages pkgs;
+    };
 
-  flake.modules.homeManager.cl_packages = { pkgs, ... }: {
-    home.packages = cliPackages pkgs;
-  };
+  flake.modules.homeManager.cl_packages =
+    { pkgs, ... }:
+    {
+      home.packages = cliPackages pkgs;
+    };
 
-  flake.modules.nixos.nix_packages = { pkgs, ... }: {
-    environment.systemPackages = nixPackages pkgs;
-  };
+  flake.modules.nixos.nix_packages =
+    { pkgs, ... }:
+    {
+      environment.systemPackages = nixPackages pkgs;
+    };
 
-  flake.modules.homeManager.nix_packages = { pkgs, ... }: {
-    home.packages = nixPackages pkgs;
-  };
+  flake.modules.homeManager.nix_packages =
+    { pkgs, ... }:
+    {
+      home.packages = nixPackages pkgs;
+    };
 }

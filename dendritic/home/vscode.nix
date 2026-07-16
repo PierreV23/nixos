@@ -1,10 +1,11 @@
 {
-  flake.modules.homeManager.vscode = { pkgs, lib, ... }:
+  flake.modules.homeManager.vscode =
+    { pkgs, lib, ... }:
     let
       extensionsList = lib.splitString "\n" (builtins.readFile ./vscode-extensions.txt);
-      extensions =
-        map (ext: lib.getAttrFromPath (lib.splitString "." ext) pkgs.vscode-marketplace)
-          (lib.filter (ext: ext != "") extensionsList);
+      extensions = map (ext: lib.getAttrFromPath (lib.splitString "." ext) pkgs.vscode-marketplace) (
+        lib.filter (ext: ext != "") extensionsList
+      );
     in
     {
       programs.vscode = {
