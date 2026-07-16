@@ -56,6 +56,7 @@ in
           flakeCfg.modules.homeManager.direnv
           flakeCfg.modules.homeManager.signal
           flakeCfg.modules.homeManager.zapzap
+          flakeCfg.modules.homeManager.autoupdate-unstable
 
           ({ pkgs, ... }: {
             home.packages = [ pkgs.age pkgs.sops ];
