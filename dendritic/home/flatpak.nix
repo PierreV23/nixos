@@ -9,7 +9,6 @@
       enable = true;
       packages = [
         "com.discordapp.Discord"
-        "com.rtosta.zapzap"
       ];
     };
   };

@@ -20,6 +20,10 @@ in
       flakeCfg.modules.nixos.virtualisation
       flakeCfg.modules.nixos.geoclue
       flakeCfg.modules.nixos.sudo
+      flakeCfg.modules.nixos.disable-default-apps
+      flakeCfg.modules.nixos.cl_packages
+      flakeCfg.modules.nixos.nix_packages
+
 
       inputs.home-manager-2605.nixosModules.home-manager
       {
@@ -35,6 +39,9 @@ in
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "hm-bak";
         home-manager.users.pierre.imports = [
+          {
+            home.stateVersion = lib.mkForce "26.05";
+          }
           flakeCfg.modules.homeManager.pierre
           flakeCfg.modules.homeManager.git
           flakeCfg.modules.homeManager.firefox
@@ -48,6 +55,7 @@ in
           flakeCfg.modules.homeManager.nix_packages
           flakeCfg.modules.homeManager.direnv
           flakeCfg.modules.homeManager.signal
+          flakeCfg.modules.homeManager.zapzap
 
           ({ pkgs, ... }: {
             home.packages = [ pkgs.age pkgs.sops ];

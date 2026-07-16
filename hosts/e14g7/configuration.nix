@@ -54,27 +54,7 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
-  environment.gnome.excludePackages = with pkgs; [
-    decibels
-    epiphany
-    gnome-connections
-    gnome-contacts
-    gnome-characters
-    gnome-maps
-    gnome-music
-    gnome-tecla
-    gnome-tour
-    gnome-user-docs
-    showtime
-    simple-scan
-    yelp
-  ];
-
   services.flatpak.enable = true;
-
-  services.xserver.excludePackages = [ pkgs.xterm ];
-
-  documentation.nixos.enable = false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -120,14 +100,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-    git
-    git-crypt
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
