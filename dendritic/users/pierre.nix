@@ -3,11 +3,13 @@ let
 in
 {
   # system account
-  flake.modules.nixos.${userName} = {
+  flake.modules.nixos.${userName} = { pkgs, ... }: {
+    programs.zsh.enable = true;
+
     users.users.${userName} = {
       isNormalUser = true;
       description = "pierre";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "libvirtd" "qemu-libvirtd" "docker" ];
     };
   };
 

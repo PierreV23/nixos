@@ -16,6 +16,10 @@ in
       # pierre user as dendritic
       flakeCfg.modules.nixos.pierre
       flakeCfg.modules.nixos.overlays
+      flakeCfg.modules.nixos.nix_ld
+      flakeCfg.modules.nixos.virtualisation
+      flakeCfg.modules.nixos.geoclue
+      flakeCfg.modules.nixos.sudo
 
       inputs.home-manager-2605.nixosModules.home-manager
       {
