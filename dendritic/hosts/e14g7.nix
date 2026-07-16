@@ -23,6 +23,7 @@ in
       flakeCfg.modules.nixos.disable-default-apps
       flakeCfg.modules.nixos.cl_packages
       flakeCfg.modules.nixos.nix_packages
+      flakeCfg.modules.nixos.auto-cleanup
 
 
       inputs.home-manager-2605.nixosModules.home-manager
