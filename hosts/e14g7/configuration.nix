@@ -54,6 +54,28 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  environment.gnome.excludePackages = with pkgs; [
+    decibels
+    epiphany
+    gnome-connections
+    gnome-contacts
+    gnome-characters
+    gnome-maps
+    gnome-music
+    gnome-tecla
+    gnome-tour
+    gnome-user-docs
+    showtime
+    simple-scan
+    yelp
+  ];
+
+  services.flatpak.enable = true;
+
+  services.xserver.excludePackages = [ pkgs.xterm ];
+
+  documentation.nixos.enable = false;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";

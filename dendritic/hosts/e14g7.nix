@@ -43,6 +43,7 @@ in
           flakeCfg.modules.homeManager.cl_packages # general cli
           flakeCfg.modules.homeManager.nix_packages
           flakeCfg.modules.homeManager.direnv
+          flakeCfg.modules.homeManager.signal
 
           ({ pkgs, ... }: {
             home.packages = [ pkgs.age pkgs.sops ];

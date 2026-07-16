@@ -35,28 +35,6 @@
           toggle-message-tray = [ ];
         };
 
-        "org/gnome/shell" = {
-          always-show-log-out = true;
-          disable-user-extensions = false;
-          enabled-extensions = [
-            "dash-to-dock@micxgx.gmail.com"
-            "Vitals@CoreCoding.com"
-            "blur-my-shell@aunetx"
-            "clipboard-indicator@tudmotu.com"
-            "weatherornot@somepaulo.github.io"
-            "drive-menu@gnome-shell-extensions.gcampax.github.com"
-            "gsconnect@andyholmes.github.io"
-            "appindicatorsupport@rgcjonas.gmail.com"
-            "tilingshell@ferrarodomenico.com"
-          ];
-          favorite-apps = [
-            "firefox.desktop"
-            "org.gnome.Nautilus.desktop"
-            "kitty.desktop"
-            "code.desktop"
-          ];
-        };
-
         # lower dock
         "org/gnome/shell/extensions/dash-to-dock" = {
           dock-position = "BOTTOM";
@@ -126,10 +104,155 @@
           cycle-layouts = [ "<Super><Control>period" ];
           cycle-layouts-backward = [ "<Super><Control>comma" ];
         };
+
+        "org/gnome/settings-daemon/plugins/media-keys" = {
+          custom-keybindings = [
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/smile/"
+          ];
+        };
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/smile" = {
+          name = "Smile";
+          command = "smile";
+          binding = "<Super>period";
+        };
+
+        # app grid folders
+        "org/gnome/desktop/app-folders" = {
+          folder-children = [
+            "Code"
+            "Chat"
+            "Office"
+            "GNOME"
+            "Utilities"
+            "System"
+            "VM"
+            "Games"
+            "Extra"
+          ];
+        };
+
+        "org/gnome/desktop/app-folders/folders/Code" = {
+          name = "Code";
+          apps = [
+            "code.desktop"
+            "org.gnome.Console.desktop"
+            "kitty.desktop"
+            "htop.desktop"
+          ];
+        };
+
+        "org/gnome/desktop/app-folders/folders/Chat" = {
+          name = "Chat";
+          apps = [
+            "com.discordapp.Discord.desktop"
+            "com.rtosta.zapzap.desktop"
+            "signal-desktop.desktop"
+          ];
+        };
+
+        "org/gnome/desktop/app-folders/folders/Office" = {
+          name = "Office";
+          apps = [
+            "startcenter.desktop"
+            "writer.desktop"
+            "calc.desktop"
+            "impress.desktop"
+            "draw.desktop"
+            "base.desktop"
+            "math.desktop"
+          ];
+        };
+
+        "org/gnome/desktop/app-folders/folders/GNOME" = {
+          name = "GNOME";
+          apps = [
+            "org.gnome.TextEditor.desktop"
+            "org.gnome.Weather.desktop"
+            "org.gnome.Calendar.desktop"
+            "org.gnome.Snapshot.desktop"
+            "org.gnome.Software.desktop"
+            "org.gnome.ColorProfileViewer.desktop"
+            "org.gnome.Nautilus.desktop"
+          ];
+        };
+
+        "org/gnome/desktop/app-folders/folders/Utilities" = {
+          name = "Utilities";
+          apps = [
+            "org.gnome.Papers.desktop"
+            "org.gnome.Loupe.desktop"
+            "org.gnome.font-viewer.desktop"
+            "org.gnome.Calculator.desktop"
+            "org.gnome.clocks.desktop"
+          ];
+        };
+
+        "org/gnome/desktop/app-folders/folders/System" = {
+          name = "System";
+          apps = [
+            "org.gnome.baobab.desktop"
+            "org.gnome.DiskUtility.desktop"
+            "org.gnome.Logs.desktop"
+            "org.gnome.SystemMonitor.desktop"
+            "org.gnome.Settings.desktop"
+            "org.gnome.Extensions.desktop"
+            "org.gnome.tweaks.desktop"
+            "cups.desktop"
+            "org.gnome.seahorse.Application.desktop"
+          ];
+        };
+
+        "org/gnome/desktop/app-folders/folders/VM" = {
+          name = "VM";
+          apps = [
+            "virt-manager.desktop"
+            "remote-viewer.desktop"
+            "com.moonlight_stream.Moonlight.desktop"
+          ];
+        };
+
+        "org/gnome/desktop/app-folders/folders/Games" = {
+          name = "Games";
+          apps = [
+            "org.prismlauncher.PrismLauncher.desktop"
+          ];
+        };
+
+        "org/gnome/desktop/app-folders/folders/Extra" = {
+          name = "Extra";
+          apps = [
+            "it.mijorus.smile.desktop"
+          ];
+        };
+
+        "org/gnome/shell" = {
+          always-show-log-out = true;
+          disable-user-extensions = false;
+          enabled-extensions = [
+            "dash-to-dock@micxgx.gmail.com"
+            "Vitals@CoreCoding.com"
+            "blur-my-shell@aunetx"
+            "clipboard-indicator@tudmotu.com"
+            "weatherornot@somepaulo.github.io"
+            "drive-menu@gnome-shell-extensions.gcampax.github.com"
+            "gsconnect@andyholmes.github.io"
+            "appindicatorsupport@rgcjonas.gmail.com"
+            "tilingshell@ferrarodomenico.com"
+            "smile-extension@mijorus.it"
+            "pinned-apps-in-appgrid@brunosilva.io"
+          ];
+          favorite-apps = [
+            "firefox.desktop"
+            "org.gnome.Nautilus.desktop"
+            "kitty.desktop"
+            "code.desktop"
+          ];
+        };
       };
 
       home.packages = with pkgs; [
         gnome-tweaks
+        gnome-themes-extra
         gnome-shell-extensions
         gnome-weather
         geoclue2
@@ -141,6 +264,11 @@
         gnomeExtensions.gsconnect
         gnomeExtensions.appindicator
         gnomeExtensions.tiling-shell
+        gnomeExtensions.keep-pinned-apps-in-appgrid
+
+        # wayland emoji selector with shortcut
+        smile
+        gnomeExtensions.smile-complementary-extension
       ];
     };
 }
