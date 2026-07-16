@@ -146,7 +146,7 @@
           apps = [
             "com.discordapp.Discord.desktop"
             "com.rtosta.zapzap.desktop"
-            "signal-desktop.desktop"
+            "signal.desktop"
           ];
         };
 
