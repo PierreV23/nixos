@@ -12,6 +12,9 @@
 
         # wayland clipboard
         wl-clipboard
+
+        mpv
+        obs
       ];
     };
 }
