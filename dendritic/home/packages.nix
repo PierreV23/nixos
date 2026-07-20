@@ -14,7 +14,7 @@
         wl-clipboard
 
         mpv
-        obs
+        obs-studio
       ];
     };
 }
