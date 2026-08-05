@@ -15,6 +15,8 @@
 
         mpv
         obs-studio
+
+        microsoft-edge
       ];
     };
 }
