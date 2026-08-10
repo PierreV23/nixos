@@ -32,6 +32,9 @@ in
 
       inputs.home-manager-2605.nixosModules.home-manager
       {
+
+        services.fprintd.enable = true;
+
         sops.defaultSopsFile = ../../secrets/secrets.yaml;
         sops.age.keyFile = "/var/lib/sops-nix/key.txt";
         sops.secrets.id_e14g7_pierre = {
