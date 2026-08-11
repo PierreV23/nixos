@@ -17,6 +17,8 @@
             proton-vpn
             proton-pass
             multi-account-containers
+            single-file
+            consent-o-matic
           ];
 
           settings = {

@@ -22,6 +22,13 @@
           button-layout = "appmenu:minimize,maximize,close";
         };
 
+        "org/gnome/desktop/wm/keybindings" = {
+          switch-applications = [ "<Super>Tab" ];
+          switch-applications-backward = [ "<Shift><Super>Tab" ];
+          switch-windows = [ "<Alt>Tab" ];
+          switch-windows-backward = [ "<Shift><Alt>Tab" ];
+        };
+
         "org/gnome/desktop/interface" = {
           gtk-theme = "Adwaita-dark";
           icon-theme = "Adwaita";

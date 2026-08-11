@@ -32,6 +32,7 @@ in
 
       inputs.home-manager-2605.nixosModules.home-manager
       {
+        programs.bash.enable = true;
 
         services.fprintd.enable = true;
 
