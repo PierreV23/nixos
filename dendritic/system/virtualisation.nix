@@ -3,6 +3,8 @@
   flake.modules.nixos.virtualisation =
     { pkgs, ... }:
     {
+      programs.virt-manager.enable = true;
+      
       virtualisation = {
         docker.enable = true;
         libvirtd = {

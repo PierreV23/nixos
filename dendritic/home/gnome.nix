@@ -40,6 +40,11 @@
 
         "org/gnome/shell/keybindings" = {
           toggle-message-tray = [ ];
+
+          show-screenshot-ui = [
+            "Print"
+            "<Shift><Super>F23"
+          ];
         };
 
         # lower dock

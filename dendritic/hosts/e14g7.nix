@@ -32,8 +32,6 @@ in
 
       inputs.home-manager-2605.nixosModules.home-manager
       {
-        programs.bash.enable = true;
-
         services.fprintd.enable = true;
 
         sops.defaultSopsFile = ../../secrets/secrets.yaml;
@@ -50,6 +48,7 @@ in
         home-manager.users.pierre.imports = [
           {
             home.stateVersion = lib.mkForce "26.05";
+            programs.bash.enable = true;
           }
           flakeCfg.modules.homeManager.pierre
           flakeCfg.modules.homeManager.git
