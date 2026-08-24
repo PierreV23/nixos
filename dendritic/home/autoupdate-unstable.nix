@@ -1,9 +1,10 @@
 {
   flake.modules.homeManager.autoupdate-unstable =
-    { lib, pkgs, ... }:
+    { lib, pkgs, config, ... }:
     let
       flakeDir = "/etc/nixos";
       input = "nixpkgs-unstable";
+      stateDir = "${config.xdg.stateHome}/nixos-autoupdate";
 
       updater = pkgs.writeShellApplication {
         name = "nixpkgs-unstable-autoupdate";
@@ -13,12 +14,11 @@
           jq
           libnotify
           coreutils
+          systemd
         ];
         text = ''
           set -euo pipefail
           cd ${flakeDir}
-
-          log="/tmp/nixos-autorebuild.log"
 
           # dont touch a dirty tree
           if [ -n "$(git status --porcelain)" ]; then
@@ -43,6 +43,45 @@
           git add flake.lock
           git commit -m "Update ${input} from ''${oldDate} to ''${newDate}"
 
+          # the marker is what survives reboots, not the notification.
+          # keep the original 'from' if an earlier update is still pending,
+          # so the prompt shows the whole range instead of just the last hop
+          mkdir -p ${stateDir}
+          [ -f ${stateDir}/from ] || printf '%s' "''${oldDate}" > ${stateDir}/from
+          printf '%s' "''${newDate}" > ${stateDir}/to
+
+          # hand off to the prompt service, which is also run at every login
+          systemctl --user start --no-block nixpkgs-unstable-prompt.service
+        '';
+      };
+
+      prompt = pkgs.writeShellApplication {
+        name = "nixpkgs-unstable-prompt";
+        runtimeInputs = with pkgs; [
+          libnotify
+          coreutils
+          glib
+        ];
+        text = ''
+          set -euo pipefail
+
+          log="/tmp/nixos-autorebuild.log"
+
+          # nothing pending, nothing to ask
+          [ -f ${stateDir}/to ] || exit 0
+
+          # at login we can beat gnome-shell to it, so wait for the daemon
+          for _ in $(seq 1 60); do
+            if gdbus introspect --session --dest org.freedesktop.Notifications \
+                 --object-path /org/freedesktop/Notifications >/dev/null 2>&1; then
+              break
+            fi
+            sleep 2
+          done
+
+          oldDate=$(cat ${stateDir}/from)
+          newDate=$(cat ${stateDir}/to)
+
           # ask with a interactive GNOME notif whether to rebuild or not
           action=$(notify-send \
             --app-name="NixOS" \
@@ -58,6 +97,8 @@
           #    build runs detached, result comes back as a notification
           if [ "$action" = "rebuild" ]; then
             if /run/wrappers/bin/pkexec ${pkgs.bash}/bin/bash -lc 'nixos-rebuild switch' >"$log" 2>&1; then
+              # only now is it no longer pending
+              rm -f ${stateDir}/from ${stateDir}/to
               notify-send --app-name="NixOS" \
                 "Rebuild complete" "nixos-rebuild switch succeeded."
             else
@@ -88,6 +129,19 @@
           RandomizedDelaySec = "1h";
         };
         Install.WantedBy = [ "timers.target" ];
+      };
+
+      # re-asks at every login for as long as a rebuild is still pending
+      systemd.user.services.nixpkgs-unstable-prompt = {
+        Unit = {
+          Description = "Offer to rebuild if a ${input} update is pending";
+          After = [ "graphical-session.target" ];
+        };
+        Service = {
+          Type = "simple";
+          ExecStart = lib.getExe prompt;
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
       };
     };
 }
