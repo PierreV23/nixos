@@ -9,7 +9,7 @@
 
     nix.optimise = {
       automatic = true;
-      dates = [ "weekly" ];
+      dates = [ "daily" ];
     };
   };
 }
