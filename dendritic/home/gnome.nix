@@ -188,6 +188,7 @@
             "org.gnome.Software.desktop"
             "org.gnome.ColorProfileViewer.desktop"
             "org.gnome.Nautilus.desktop"
+            "org.gnome.SimpleScan.desktop"
           ];
         };
 

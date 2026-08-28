@@ -17,6 +17,8 @@ in
           "libvirtd"
           "qemu-libvirtd"
           "docker"
+          "scanner"
+          "lp"
         ];
       };
     };

@@ -29,6 +29,7 @@ in
       flakeCfg.modules.nixos.cl_packages
       flakeCfg.modules.nixos.nix_packages
       flakeCfg.modules.nixos.auto-cleanup
+      flakeCfg.modules.nixos.printing
 
       inputs.home-manager-2605.nixosModules.home-manager
       {

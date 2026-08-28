@@ -15,7 +15,6 @@
         gnome-tour
         gnome-user-docs
         showtime
-        simple-scan
         yelp
       ];
 
