@@ -16,6 +16,12 @@ let
     wg_port = secrets.mediaserver.services.jellyfin.port;
     public_port = secrets.eth.redirects.jellyfin.public_port;
   };
+
+  minecraft = {
+    wg_ip = "10.0.0.4";
+    wg_port = 25566;
+    public_port = 25565;
+  };
 in
 {
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
@@ -26,6 +32,7 @@ in
     internalInterfaces = [ "wg0" ];
     forwardPorts = [
       (fwd jellyfin.public_port jellyfin.wg_ip jellyfin.wg_port "tcp")
+      (fwd minecraft.public_port minecraft.wg_ip minecraft.wg_port "tcp")
     ];
   };
 
