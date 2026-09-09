@@ -27,6 +27,15 @@
             exit 0
           fi
 
+          # get upstream first
+          # bail if rebase fails
+          if ! git pull --rebase; then
+            git rebase --abort || true
+            notify-send --app-name="NixOS" -u low \
+              "${input}" "Skipped: git pull --rebase failed." || true
+            exit 0
+          fi
+
           oldDate=$(date -u -d "@$(jq -r '.nodes."${input}".locked.lastModified' flake.lock)" +%F)
 
           # update just this input
