@@ -18,8 +18,8 @@
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": false,
     "editor.codeActionsOnSave": {
-      "source.fixAll.ruff": "always",
-      "source.organizeImports.ruff": "always"
+      "source.fixAll.ruff": "never",
+      "source.organizeImports.ruff": "never"
     }
   },
   "git.autofetch": true,
