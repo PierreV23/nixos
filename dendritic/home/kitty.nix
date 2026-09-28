@@ -14,6 +14,9 @@
           update_check_interval = 0;
           window_padding_width = 8;
         };
+        keybindings = {
+          "ctrl+shift+delete" = "combine : clear_terminal scrollback active : send_text normal,application \\x0c";
+        };
         extraConfig = ''
           linux_display_server wayland
         '';
