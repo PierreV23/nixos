@@ -1,0 +1,88 @@
+# History
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE="$HOME/.zsh_history"
+setopt HIST_IGNORE_ALL_DUPS SHARE_HISTORY
+
+# Keybindings
+bindkey "^[[3~" delete-char
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
+# Track execution time
+preexec() { cmd_start_time=$SECONDS; }
+
+setopt PROMPT_SUBST
+
+# Custom path display
+prompt_path() {
+  if command -v git &>/dev/null; then
+    local git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [[ -n $git_root ]]; then
+      local repo_name=$(basename "$git_root")
+      local before_repo="${git_root%/*}"
+      local rel_path="${PWD#$git_root}"
+      
+      if [[ $before_repo == $git_root ]]; then
+        if [[ -z $rel_path ]]; then
+          echo " %F{magenta}$repo_name%f "
+        else
+          echo " %F{magenta}$repo_name%f %F{cyan}$rel_path%f"
+        fi
+      else
+        if [[ -z $rel_path ]]; then
+          echo " %F{cyan}$before_repo/%f %F{magenta}$repo_name%f "
+        else
+          echo " %F{cyan}$before_repo/%f %F{magenta}$repo_name%f %F{cyan}$rel_path%f"
+        fi
+      fi
+      return
+    fi
+  fi
+  echo " %F{cyan}%~%f"
+}
+
+precmd() {
+  # Git branch
+  if command -v git &>/dev/null; then
+    local branch=$(git branch --show-current 2>/dev/null)
+    if [ -n "$branch" ]; then
+      GIT_INFO=" %F{green}:$branch%f"
+    else
+      GIT_INFO=""
+    fi
+  else
+    GIT_INFO=' %F{red}[no git]%f'
+  fi
+  
+  # Execution time
+  if [[ -n $cmd_start_time ]]; then
+    local elapsed=$((SECONDS - cmd_start_time))
+    if (( elapsed >= 60 )); then
+      local mins=$(((elapsed % 3600) / 60))
+      local secs=$((elapsed % 60))
+      EXEC_TIME=" took %F{yellow}${mins}m${secs}s%f"
+    elif (( elapsed >= 1 )); then
+      EXEC_TIME=" took %F{yellow}${elapsed}s%f"
+    else
+      EXEC_TIME=""
+    fi
+    unset cmd_start_time
+  else
+    EXEC_TIME=""
+  fi
+}
+
+PROMPT='
+%F{cyan}↑%f %(?.%F{green}SUCCESS%f.%F{red}ERROR%f)${EXEC_TIME}
+%F{red}REMOTE%f %F{yellow}[%*]%f %F{blue}${USER}%f@%F{white}%m%f$(prompt_path)${GIT_INFO}
+'
+
+# Aliases
+alias ls='ls --color=auto'
+alias ll='ls -lh'
+alias la='ls -lah'
+alias ..='cd ..'
+alias ...='cd ../..'

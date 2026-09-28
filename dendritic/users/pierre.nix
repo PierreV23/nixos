@@ -6,8 +6,6 @@ in
   flake.modules.nixos.${userName} =
     { pkgs, ... }:
     {
-      programs.zsh.enable = true;
-
       users.users.${userName} = {
         isNormalUser = true;
         description = "pierre";

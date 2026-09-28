@@ -20,6 +20,7 @@ in
 
       # pierre user as dendritic
       flakeCfg.modules.nixos.pierre
+      flakeCfg.modules.nixos.zsh
       flakeCfg.modules.nixos.overlays
       flakeCfg.modules.nixos.nix_ld
       flakeCfg.modules.nixos.virtualisation
@@ -67,6 +68,9 @@ in
           flakeCfg.modules.homeManager.signal
           flakeCfg.modules.homeManager.zapzap
           flakeCfg.modules.homeManager.autoupdate-unstable
+          flakeCfg.modules.homeManager.zsh
+          flakeCfg.modules.homeManager.shell
+          flakeCfg.modules.homeManager.kitty
 
           (
             { pkgs, ... }:
