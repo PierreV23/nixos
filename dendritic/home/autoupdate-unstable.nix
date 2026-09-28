@@ -91,16 +91,21 @@
           oldDate=$(cat ${stateDir}/from)
           newDate=$(cat ${stateDir}/to)
 
-          # ask with a interactive GNOME notif whether to rebuild or not
-          action=$(notify-send \
-            --app-name="NixOS" \
-            --urgency=normal \
-            --expire-time=0 \
-            --action="rebuild=Rebuild now" \
-            --action="later=Later" \
-            --wait \
-            "${input} updated" \
-            "''${oldDate} → ''${newDate}. Run nixos-rebuild switch now?" || true)
+          # ask with a interactive GNOME notif whether to rebuild or not.
+          # a body click invokes cuases GNOME to close the notif, so just respawn it then
+          action=default
+          while [ "$action" = "default" ]; do
+            action=$(notify-send \
+              --app-name="NixOS" \
+              --urgency=normal \
+              --expire-time=0 \
+              --action="default=Show" \
+              --action="rebuild=Rebuild now" \
+              --action="later=Later" \
+              --wait \
+              "${input} updated" \
+              "''${oldDate} → ''${newDate}. Run nixos-rebuild switch now?" || true)
+          done
 
           # if rebuilding: GNOME's polkit agent prompts for user password,
           #    build runs detached, result comes back as a notification
