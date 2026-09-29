@@ -16,6 +16,7 @@
         };
         keybindings = {
           "ctrl+shift+delete" = "combine : clear_terminal scrollback active : send_text normal,application \\x0c";
+          "ctrl+shift+alt+c" = "launch --stdin-source=@screen_scrollback --type=clipboard";
         };
         extraConfig = ''
           linux_display_server wayland
