@@ -70,12 +70,16 @@ kitty-help() {
 
 # special ssh commands
 if [[ "$TERM" == "xterm-kitty" ]]; then
+    ssh() {
+      TERM=xterm-256color command ssh "$@"
+    }
+
     ks() {
       command kitty +kitten ssh "$@"
     }
 
     ksh() {
-        command kitty +kitten ssh "$@" -t 'ZDOTDIR=$HOME/.pierrev23-stuff exec $HOME/.pierrev23-stuff/.zsh-bin/zsh'
+        command kitty +kitten ssh "$@" -t 'TERM=xterm-256color ZDOTDIR=$HOME/.pierrev23-stuff exec $HOME/.pierrev23-stuff/.zsh-bin/zsh'
     }
 
     compdef ks=ssh
