@@ -8,6 +8,7 @@ formulahendry.auto-rename-tag
 formulahendry.code-runner
 hediet.vscode-drawio
 kameshkotwani.google-search
+mkhl.direnv
 ms-python.black-formatter
 ms-python.debugpy
 ms-python.python
