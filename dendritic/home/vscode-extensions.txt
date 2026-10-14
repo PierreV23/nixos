@@ -28,6 +28,7 @@ myriad-dreamin.tinymist
 oderwat.indent-rainbow
 pkief.material-icon-theme
 tomoki1207.pdf
+tamasfe.even-better-toml
 usernamehw.errorlens
 wholroyd.jinja
 wmaurer.change-case
