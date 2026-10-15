@@ -20,6 +20,7 @@
         };
         extraConfig = ''
           linux_display_server wayland
+          allow_remote_control yes
         '';
       };
 
