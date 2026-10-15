@@ -215,15 +215,16 @@ precmd() {
   # Calculate execution time
   if [[ -n $cmd_start_time ]]; then
     local elapsed=$((SECONDS - cmd_start_time))
+    local hours=$((elapsed / 3600))
     local mins=$(((elapsed % 3600) / 60))
     local secs=$((elapsed % 60))
 
-    if (( elapsed >= 1 )); then
-      if (( elapsed >= 60 )); then
-        cmd_exec_time=" took %F{yellow}${mins}m${secs}s%f"
-      else
-        cmd_exec_time=" took %F{yellow}${secs}s%f"
-      fi
+    if (( elapsed >= 3600 )); then
+      cmd_exec_time=" took %F{yellow}${hours}h${mins}m${secs}s%f"
+    elif (( elapsed >= 60 )); then
+      cmd_exec_time=" took %F{yellow}${mins}m${secs}s%f"
+    elif (( elapsed >= 1 )); then
+      cmd_exec_time=" took %F{yellow}${secs}s%f"
     else
       cmd_exec_time=""
     fi
@@ -238,3 +239,13 @@ PROMPT='
 %F{cyan}↑%f %(?.%F{green}SUCCESS%f.%F{red}ERROR%f)${cmd_exec_time}
 %F{yellow}[%D{%H:%M:%S}]%f %F{blue}%n%f@%F{white}%m%f${prompt_path_str}${vcs_info_msg_0_}
 '
+
+
+try() {
+  nix shell "nixpkgs#"${^@}
+}
+
+
+
+
+

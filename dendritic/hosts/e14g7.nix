@@ -70,6 +70,7 @@ in
           flakeCfg.modules.homeManager.autoupdate-unstable
           flakeCfg.modules.homeManager.zsh
           flakeCfg.modules.homeManager.shell
+          flakeCfg.modules.homeManager.atuin
           flakeCfg.modules.homeManager.kitty
 
           (
@@ -96,6 +97,7 @@ in
                   ASSHBinaryPath: ${pkgs.assh}/bin/assh
                   ControlPath: ~/.ssh/sockets/%C
                   IdentityFile: ${keys.id_e14g7_pierre}
+                  GatewayConnectTimeout: 1
                 '';
                 hosts = [ asshHosts.personal ];
               };
