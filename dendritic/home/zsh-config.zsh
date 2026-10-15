@@ -249,6 +249,10 @@ kall()  { kitty @ get-text --extent=all | kitten clipboard; }
 klast() { kitty @ get-text --extent=last_non_empty_output | kitten clipboard; }
 
 
-
-
-
+__zi_widget() {
+  zi </dev/tty
+  local f; for f in $precmd_functions; do $f; done
+  zle reset-prompt
+}
+zle -N __zi_widget
+bindkey '^[z' __zi_widget   # Alt+Z

@@ -16,11 +16,16 @@
           style = "compact";
           inline_height = 20;
           enter_accept = false;
+          search.filters = [
+            "global"
+            "directory"
+          ];
         };
       };
 
       programs.zsh.initContent = lib.mkAfter ''
-        bindkey '^[r' atuin-search   # Alt+R
+        bindkey '^r' atuin-search          # Ctrl+R
+        bindkey '^[r' fzf-history-widget   # Alt+R
       '';
     };
 }
