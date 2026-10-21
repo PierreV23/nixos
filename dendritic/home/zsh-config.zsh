@@ -256,3 +256,13 @@ __zi_widget() {
 }
 zle -N __zi_widget
 bindkey '^[z' __zi_widget   # Alt+Z
+
+
+__zi_insert_widget() {
+  local dir
+  dir=$(zoxide query --interactive </dev/tty) || { zle reset-prompt; return; }
+  LBUFFER+="${(q-)dir}"
+  zle reset-prompt
+}
+zle -N __zi_insert_widget
+bindkey '^[x' __zi_insert_widget   # Alt+X
