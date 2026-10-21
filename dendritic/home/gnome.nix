@@ -98,6 +98,7 @@
           toggle-menu = [ "<Super>v" ];
           history-size = 50;
           display-mode = 0;
+          move-item-first = true;
         };
 
         # tilingshell shortcuts
