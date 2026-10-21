@@ -18,6 +18,21 @@
     ./programs.nix
   ];
 
+  
+
+    # NVIDIA-GPU in Docker onder WSL (Windows-driver, geen Linux-driver)
+  wsl.useWindowsDriver = true;
+  hardware.nvidia-container-toolkit = {
+    enable = true;
+    suppressNvidiaDriverAssertion = true;
+  };
+  virtualisation.docker.daemon.settings.features.cdi = true;
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkg.pname or (builtins.parseDrvName pkg.name).name) [
+    "nvidia-x11" "nvidia-settings" "nvidia-persistenced"
+  ];
+
+  virtualisation.libvirtd.onShutdown = "shutdown";
+  
   virtualisation.docker.enable = true;
   users.users.nixos.extraGroups = [ "docker" "libvirtd" ];
 
