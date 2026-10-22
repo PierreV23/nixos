@@ -44,6 +44,16 @@ in
           group = "users";
           mode = "0400";
         };
+        sops.secrets.assh_private = {
+          owner = "pierre";
+          group = "users";
+          mode = "0400";
+        };
+        sops.secrets.assh_key_1 = {
+          owner = "pierre";
+          group = "users";
+          mode = "0400";
+        };
 
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
@@ -89,11 +99,14 @@ in
               {
                 id_e14g7_pierre = osConfig.sops.secrets.id_e14g7_pierre.path;
                 id_t480s_pierre = assh.secret secrets.ssh.t480s.private_key;
+                assh_private = osConfig.sops.secrets.assh_private.path;
               };
             yaml =
               { pkgs, keys }:
               assh.mkYaml {
+                includes = [ keys.assh_private ];
                 defaults = ''
+                  # sops: ${builtins.hashFile "sha256" ../../secrets/secrets.yaml}
                   ASSHBinaryPath: ${pkgs.assh}/bin/assh
                   ControlPath: ~/.ssh/sockets/%C
                   IdentityFile: ${keys.id_e14g7_pierre}
