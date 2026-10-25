@@ -32,6 +32,9 @@
   ];
 
   virtualisation.libvirtd.onShutdown = "shutdown";
+
+  # no more windows apps in PATH
+  wsl.interop.includePath = false;
   
   virtualisation.docker.enable = true;
   users.users.nixos.extraGroups = [ "docker" "libvirtd" ];
