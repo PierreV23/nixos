@@ -35,6 +35,10 @@
 
   # no more windows apps in PATH
   wsl.interop.includePath = false;
+
+  wsl.extraBin = [
+    { src = "${pkgs.coreutils}/bin/true"; name = "true"; }
+  ];
   
   virtualisation.docker.enable = true;
   users.users.nixos.extraGroups = [ "docker" "libvirtd" ];
