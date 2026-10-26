@@ -41,12 +41,12 @@
   ];
   
   virtualisation.docker.enable = true;
-  users.users.nixos.extraGroups = [ "docker" "libvirtd" ];
+  users.users.pierre.extraGroups = [ "docker" "libvirtd" ];
 
   virtualisation.libvirtd.enable = true;
 
   wsl.enable = true;
-  wsl.defaultUser = "nixos";
+  wsl.defaultUser = "pierre";
 
   programs.nix-ld.enable = true;
 
