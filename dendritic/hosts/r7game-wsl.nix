@@ -21,6 +21,11 @@ in
         time.timeZone = "Europe/Amsterdam";
         fonts.enableDefaultPackages = true;
         # fonts.packages = [ pkgs.nerd-fonts.symbols-only ]; # not needed i think?
+
+        environment.sessionVariables = {
+          LD_LIBRARY_PATH = [ "/usr/lib/wsl/lib" ];
+          GALLIUM_DRIVER = "d3d12";
+        };
       })
 
       flakeCfg.modules.nixos.pierre
@@ -55,6 +60,7 @@ in
           flakeCfg.modules.homeManager.kitty
           {
             programs.kitty.settings.linux_display_server = "x11";
+            programs.kitty.settings.resize_debounce_time = "0.2 1.0";
           }
         ];
       }
