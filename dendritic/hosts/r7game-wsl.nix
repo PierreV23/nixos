@@ -16,7 +16,10 @@ in
     modules = [
       inputs.nixos-wsl-2605.nixosModules.default
       ../../hosts/r7game-wsl/configuration.nix
-      { nixpkgs.hostPlatform = "x86_64-linux"; }
+      {
+        nixpkgs.hostPlatform = "x86_64-linux";
+        time.timeZone = "Europe/Amsterdam";
+      }
 
       flakeCfg.modules.nixos.pierre
       flakeCfg.modules.nixos.zsh
