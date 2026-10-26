@@ -24,6 +24,11 @@
       inputs.nixpkgs.follows = "nixpkgs-2605";
     };
 
+    nixos-wsl-2605 = {
+      url = "github:nix-community/NixOS-WSL/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
+    };
+
     # extra
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
@@ -130,19 +135,6 @@
           ];
         };
 
-        r7game-wsl = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
-            repoRoot = self;
-          };
-          modules = [
-            nixos-wsl.nixosModules.default
-            ./hosts/r7game-wsl/configuration.nix
-            ./modules/common/gc.nix
-          ];
-        };
-
         eth = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
@@ -155,7 +147,7 @@
           ];
         };
 
-        inherit (dendritic.nixosConfigurations) e14g7;
+        inherit (dendritic.nixosConfigurations) e14g7 r7game-wsl;
 
       };
     };
