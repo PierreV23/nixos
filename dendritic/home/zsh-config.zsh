@@ -266,3 +266,5 @@ __zi_insert_widget() {
 }
 zle -N __zi_insert_widget
 bindkey '^[x' __zi_insert_widget   # Alt+X
+
+setopt interactive_comments
