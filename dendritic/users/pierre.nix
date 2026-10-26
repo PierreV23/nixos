@@ -27,6 +27,6 @@ in
     {
       home.username = userName;
       home.homeDirectory = lib.mkDefault "/home/${userName}";
-      home.stateVersion = lib.mkDefault "26.05";
+      # home.stateVersion = lib.mkDefault "26.05";
     };
 }
