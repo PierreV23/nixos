@@ -16,10 +16,10 @@ in
     modules = [
       inputs.nixos-wsl-2605.nixosModules.default
       ../../hosts/r7game-wsl/configuration.nix
-      ../../modules/common/gc.nix
       { nixpkgs.hostPlatform = "x86_64-linux"; }
 
       flakeCfg.modules.nixos.pierre
+      flakeCfg.modules.nixos.auto-cleanup
 
       inputs.home-manager-2605.nixosModules.home-manager
       {
