@@ -16,10 +16,12 @@ in
     modules = [
       inputs.nixos-wsl-2605.nixosModules.default
       ../../hosts/r7game-wsl/configuration.nix
-      {
+      ({pkgs, ...}: {
         nixpkgs.hostPlatform = "x86_64-linux";
         time.timeZone = "Europe/Amsterdam";
-      }
+        fonts.enableDefaultPackages = true;
+        # fonts.packages = [ pkgs.nerd-fonts.symbols-only ]; # not needed i think?
+      })
 
       flakeCfg.modules.nixos.pierre
       flakeCfg.modules.nixos.zsh
