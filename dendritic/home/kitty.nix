@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.kitty =
-    { ... }:
+    { lib, ... }:
     {
       programs.kitty = {
         enable = true;
@@ -13,13 +13,13 @@
           enable_audio_bell = false;
           update_check_interval = 0;
           window_padding_width = 8;
+          linux_display_server = lib.mkDefault "wayland";
         };
         keybindings = {
           "ctrl+shift+delete" = "combine : clear_terminal scrollback active : send_text normal,application \\x0c";
           "ctrl+shift+alt+c" = "launch --stdin-source=@screen_scrollback --type=clipboard";
         };
         extraConfig = ''
-          linux_display_server wayland
           allow_remote_control yes
         '';
       };

@@ -53,6 +53,9 @@ in
           flakeCfg.modules.homeManager.cl_packages
           flakeCfg.modules.homeManager.nix_packages
           flakeCfg.modules.homeManager.kitty
+          {
+            programs.kitty.settings.linux_display_server = "x11";
+          }
         ];
       }
     ];
