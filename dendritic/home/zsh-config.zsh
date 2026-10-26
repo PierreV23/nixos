@@ -245,8 +245,8 @@ try() {
   nix shell "nixpkgs#"${^@}
 }
 
-kall()  { kitty @ get-text --extent=all | kitten clipboard; }
-klast() { kitty @ get-text --extent=last_non_empty_output | kitten clipboard; }
+[[ $TERM == xterm-kitty ]] && kall()  { kitty @ get-text --extent=all | kitten clipboard; }
+[[ $TERM == xterm-kitty ]] && klast() { kitty @ get-text --extent=last_non_empty_output | kitten clipboard; }
 
 
 __zi_widget() {
