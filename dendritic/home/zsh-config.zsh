@@ -128,11 +128,11 @@ reload() {
   exec zsh
 }
 
-# Display shortcuts on first kitty launch
-if [[ $TERM == "xterm-kitty" && -z "$KITTY_HELP_SHOWN" ]]; then
-  export KITTY_HELP_SHOWN=1
-  kitty-help
-fi
+# # Display shortcuts on first kitty launch
+# if [[ $TERM == "xterm-kitty" && -z "$KITTY_HELP_SHOWN" ]]; then
+#   export KITTY_HELP_SHOWN=1
+#   kitty-help
+# fi
 
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
