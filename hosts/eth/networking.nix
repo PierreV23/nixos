@@ -11,7 +11,7 @@
       }
     ];
   };
-  networking.defaultGateway = secrets.eth.gateway;
+  networking.defaultGateway = { address = secrets.eth.gateway; interface = "ens3"; };
   networking.nameservers = [
     "1.1.1.1"
     "8.8.8.8"
@@ -22,6 +22,7 @@
     description = "Keep network ARP alive";
     wantedBy = [ "multi-user.target" ];
     after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
     serviceConfig = {
       Type = "simple";
       Restart = "always";
