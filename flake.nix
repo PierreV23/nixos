@@ -78,7 +78,7 @@
 
       nixosConfigurations = {
 
-        mediaserver = nixpkgs.lib.nixosSystem {
+        mediaserver = nixpkgs-2605.lib.nixosSystem {
           inherit system;
           specialArgs = {
             secrets = import ./vars/secrets.nix { inherit (nixpkgs) lib; };
