@@ -70,6 +70,7 @@ in
           --vfs-read-chunk-size-limit=512M \
           --vfs-read-ahead=256M \
           --vfs-cache-poll-interval=60s \
+          --vfs-links \
           --transfers=1 \
           --buffer-size=256M \
           --dir-cache-time=72h \
