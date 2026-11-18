@@ -32,6 +32,7 @@ in
       flakeCfg.modules.nixos.auto-cleanup
       flakeCfg.modules.nixos.printing
       flakeCfg.modules.nixos.steam
+      flakeCfg.modules.nixos.memory
 
       inputs.home-manager-2605.nixosModules.home-manager
       {
