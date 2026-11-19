@@ -27,12 +27,28 @@
             exit 0
           fi
 
-          # get upstream first
-          # bail if rebase fails
-          if ! git pull --rebase; then
+          # timer catch-up fires right after boot/resume, often before wifi is back,
+          # so retry the network part for a while before giving up
+          fetched=false
+          for _ in $(seq 1 10); do
+            if git fetch --quiet; then
+              fetched=true
+              break
+            fi
+            sleep 30
+          done
+
+          if [ "$fetched" != true ]; then
+            notify-send --app-name="NixOS" -u low \
+              "${input}" "Skipped: couldn't reach the git remote." || true
+            exit 0
+          fi
+
+          # network is fine now; this can only fail on a real conflict
+          if ! git rebase --quiet '@{u}'; then
             git rebase --abort || true
             notify-send --app-name="NixOS" -u low \
-              "${input}" "Skipped: git pull --rebase failed." || true
+              "${input}" "Skipped: rebase onto upstream failed." || true
             exit 0
           fi
 
@@ -132,6 +148,7 @@
         Service = {
           Type = "oneshot";
           ExecStart = lib.getExe updater;
+          TimeoutStartSec = "20min";
         };
       };
 
