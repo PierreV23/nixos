@@ -2,8 +2,10 @@
 let
   cliPackages =
     pkgs: with pkgs; [
+      # git stuff
       git
       git-crypt
+      lazygit
 
       #@ shell
       zsh
